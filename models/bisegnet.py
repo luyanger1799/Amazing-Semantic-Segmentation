@@ -6,7 +6,7 @@ The implementation of BiSegNet based on Tensorflow.
 @Project: https://github.com/luyanger1799/amazing-semantic-segmentation
 
 """
-from utils import layers as my_layers
+from utils import layers as custom_layers
 from models import Network
 import tensorflow as tf
 
@@ -47,7 +47,7 @@ class BiSegNet(Network):
         # Global average pooling
         _, _, _, c = backend.int_shape(x)
 
-        glb = my_layers.GlobalAveragePooling2D(keep_dims=True)(x)
+        glb = custom_layers.GlobalAveragePooling2D(keep_dims=True)(x)
         glb = layers.Conv2D(c, 1, strides=1, kernel_initializer='he_normal')(glb)
         glb = layers.BatchNormalization()(glb)
         glb = layers.Activation(activation='sigmoid')(glb)
@@ -63,7 +63,7 @@ class BiSegNet(Network):
         # Global average pooling
         _, _, _, c = backend.int_shape(inputs)
 
-        glb = my_layers.GlobalAveragePooling2D(keep_dims=True)(inputs)
+        glb = custom_layers.GlobalAveragePooling2D(keep_dims=True)(inputs)
         glb = layers.Conv2D(filters, 1, strides=1, activation='relu', kernel_initializer='he_normal')(glb)
         glb = layers.Conv2D(filters, 1, strides=1, activation='sigmoid', kernel_initializer='he_normal')(glb)
 
@@ -96,7 +96,7 @@ class BiSegNet(Network):
         c4 = self._attention_refinement_module(c4)
         c5 = self._attention_refinement_module(c5)
 
-        glb = my_layers.GlobalAveragePooling2D(keep_dims=True)(c5)
+        glb = custom_layers.GlobalAveragePooling2D(keep_dims=True)(c5)
         c5 = layers.Multiply()([c5, glb])
 
         # combining the paths

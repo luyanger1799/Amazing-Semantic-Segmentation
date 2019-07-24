@@ -6,7 +6,7 @@ The implementation of DenseASPP based on Tensorflow.
 @Project: https://github.com/luyanger1799/amazing-semantic-segmentation
 
 """
-from utils import layers as my_layers
+from utils import layers as custom_layers
 from models import Network
 import tensorflow as tf
 
@@ -71,26 +71,26 @@ class DenseASPP(Network):
         d3 = self._dilated_conv_block(d3, 64, 3, rate=3)
 
         # Second block rate=6
-        d4 = my_layers.Concatenate(out_size=aspp_size)([c5, d3])
+        d4 = custom_layers.Concatenate(out_size=aspp_size)([c5, d3])
         d4 = self._dilated_conv_block(d4, 256, 1)
         d4 = self._dilated_conv_block(d4, 64, 3, rate=6)
 
         # Third block rate=12
-        d5 = my_layers.Concatenate(out_size=aspp_size)([c5, d3, d4])
+        d5 = custom_layers.Concatenate(out_size=aspp_size)([c5, d3, d4])
         d5 = self._dilated_conv_block(d5, 256, 1)
         d5 = self._dilated_conv_block(d5, 64, 3, rate=12)
 
         # Forth block rate=18
-        d6 = my_layers.Concatenate(out_size=aspp_size)([c5, d3, d4, d5])
+        d6 = custom_layers.Concatenate(out_size=aspp_size)([c5, d3, d4, d5])
         d6 = self._dilated_conv_block(d6, 256, 1)
         d6 = self._dilated_conv_block(d6, 64, 3, rate=18)
 
         # Fifth block rate=24
-        d7 = my_layers.Concatenate(out_size=aspp_size)([c5, d3, d4, d5, d6])
+        d7 = custom_layers.Concatenate(out_size=aspp_size)([c5, d3, d4, d5, d6])
         d7 = self._dilated_conv_block(d7, 256, 1)
         d7 = self._dilated_conv_block(d7, 64, 3, rate=24)
 
-        x = my_layers.Concatenate(out_size=aspp_size)([c5, d3, d4, d5, d6, d7])
+        x = custom_layers.Concatenate(out_size=aspp_size)([c5, d3, d4, d5, d6, d7])
         x = layers.Conv2D(num_classes, 1, strides=1, kernel_initializer='he_normal')(x)
         x = layers.UpSampling2D(size=(8, 8), interpolation='bilinear')(x)
 

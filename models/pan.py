@@ -6,7 +6,7 @@ The implementation of PAN (Pyramid Attention Networks) based on Tensorflow.
 @Project: https://github.com/luyanger1799/amazing-semantic-segmentation
 
 """
-from utils import layers as my_layers
+from utils import layers as custom_layers
 from models import Network
 import tensorflow as tf
 
@@ -66,7 +66,7 @@ class PAN(Network):
         _, h, w, _ = backend.int_shape(x)
 
         # global average pooling
-        glb = my_layers.GlobalAveragePooling2D(keep_dims=True)(x)
+        glb = custom_layers.GlobalAveragePooling2D(keep_dims=True)(x)
         glb = layers.Conv2D(out_filters, 1, strides=1, kernel_initializer='he_normal')(glb)
 
         # down
@@ -104,7 +104,7 @@ class PAN(Network):
         return x
 
     def _gau(self, x, y, out_filters, up_size=(2, 2)):
-        glb = my_layers.GlobalAveragePooling2D(keep_dims=True)(y)
+        glb = custom_layers.GlobalAveragePooling2D(keep_dims=True)(y)
         glb = layers.Conv2D(out_filters, 1, strides=1, activation='sigmoid', kernel_initializer='he_normal')(glb)
 
         x = self._conv_bn_relu(x, out_filters, 3, 1)

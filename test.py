@@ -8,7 +8,7 @@ The file defines the testing process.
 """
 from utils.data_generator import ImageDataGenerator
 from utils.helpers import get_dataset_info, check_related_path
-from utils.losses import categorical_crossentropy_logits
+from utils.losses import categorical_crossentropy_with_logits
 from utils.metrics import mean_iou
 from builders import builder
 import tensorflow as tf
@@ -60,7 +60,7 @@ else:
     net.load_weights(args.weights)
 
 # compile the model
-net.compile(optimizer=tf.keras.optimizers.Adam(), loss=categorical_crossentropy_logits, metrics=[mean_iou])
+net.compile(optimizer=tf.keras.optimizers.Adam(), loss=categorical_crossentropy_with_logits(), metrics=[mean_iou])
 # data generator
 test_gen = ImageDataGenerator()
 

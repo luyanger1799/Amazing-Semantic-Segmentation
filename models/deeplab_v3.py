@@ -6,7 +6,7 @@ The implementation of DeepLabV3 based on Tensorflow.
 @Project: https://github.com/luyanger1799/amazing-semantic-segmentation
 
 """
-from utils import layers as my_layers
+from utils import layers as custom_layers
 from models import Network
 import tensorflow as tf
 
@@ -85,12 +85,12 @@ class DeepLabV3(Network):
                                padding='same',
                                dilation_rate=6 * (i + 1))(x)
             xs.append(xi)
-        img_pool = my_layers.GlobalAveragePooling2D(keep_dims=True)(x)
+        img_pool = custom_layers.GlobalAveragePooling2D(keep_dims=True)(x)
         img_pool = layers.Conv2D(out_filters, 1, 1, kernel_initializer='he_normal')(img_pool)
         img_pool = layers.UpSampling2D(size=self.aspp_size, interpolation='bilinear')(img_pool)
         xs.append(img_pool)
 
-        x = my_layers.Concatenate(out_size=self.aspp_size)(xs)
+        x = custom_layers.Concatenate(out_size=self.aspp_size)(xs)
         x = layers.Conv2D(out_filters, 1, strides=1, kernel_initializer='he_normal')(x)
         x = layers.BatchNormalization()(x)
 
