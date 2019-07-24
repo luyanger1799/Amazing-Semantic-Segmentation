@@ -6,7 +6,7 @@ The implementation of DeepLabV3Plus based on Tensorflow.
 @Project: https://github.com/luyanger1799/amazing-semantic-segmentation
 
 """
-from utils.layers import GlobalAveragePooling2D, Concatenate
+from utils import layers as my_layers
 from models import Network
 import tensorflow as tf
 
@@ -73,7 +73,7 @@ class DeepLabV3Plus(Network):
         x = layers.UpSampling2D(size=(4, 4), interpolation='bilinear')(x)
         x = self._conv_bn_relu(x, 48, 1, strides=1)
 
-        x = Concatenate(out_size=self.aspp_size)([x, c2])
+        x = my_layers.Concatenate(out_size=self.aspp_size)([x, c2])
         x = self._conv_bn_relu(x, 256, 3, 1)
         x = layers.Dropout(rate=0.5)(x)
 
@@ -100,13 +100,13 @@ class DeepLabV3Plus(Network):
         for i in range(3):
             xi = layers.Conv2D(out_filters, 3, strides=1, padding='same', dilation_rate=6 * (i + 1))(x)
             xs.append(xi)
-        img_pool = GlobalAveragePooling2D(keep_dims=True)(x)
-        img_pool = layers.Conv2D(out_filters, 1, 1)(img_pool)
+        img_pool = my_layers.GlobalAveragePooling2D(keep_dims=True)(x)
+        img_pool = layers.Conv2D(out_filters, 1, 1, kernel_initializer='he_normal')(img_pool)
         img_pool = layers.UpSampling2D(size=self.aspp_size, interpolation='bilinear')(img_pool)
         xs.append(img_pool)
 
-        x = Concatenate(out_size=self.aspp_size)(xs)
-        x = layers.Conv2D(out_filters, 1, strides=1)(x)
+        x = my_layers.Concatenate(out_size=self.aspp_size)(xs)
+        x = layers.Conv2D(out_filters, 1, strides=1, kernel_initializer='he_normal')(x)
         x = layers.BatchNormalization()(x)
 
         return x

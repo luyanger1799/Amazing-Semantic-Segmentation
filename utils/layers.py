@@ -44,6 +44,9 @@ class Concatenate(layers.Concatenate):
     def call(self, inputs):
         return backend.concatenate(inputs, self.axis)
 
+    def build(self, input_shape):
+        pass
+
     def compute_output_shape(self, input_shape):
         if self.out_size is None:
             return super(Concatenate, self).compute_output_shape(input_shape)

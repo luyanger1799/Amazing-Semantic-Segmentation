@@ -41,7 +41,7 @@ class FCN(Network):
         return self.fcn(inputs)
 
     def _conv_relu(self, x, filters, kernel_size=1):
-        x = layers.Conv2D(filters, kernel_size, padding='same')(x)
+        x = layers.Conv2D(filters, kernel_size, padding='same', kernel_initializer='he_normal')(x)
         x = layers.ReLU()(x)
         return x
 
@@ -54,8 +54,8 @@ class FCN(Network):
         x = self._conv_relu(x, 4096, 1)
         x = layers.Dropout(rate=0.5)(x)
 
-        x = layers.Conv2D(num_classes, 1)(x)
-        x = layers.Conv2DTranspose(num_classes, 64, strides=32, padding='same')(x)
+        x = layers.Conv2D(num_classes, 1, kernel_initializer='he_normal')(x)
+        x = layers.Conv2DTranspose(num_classes, 64, strides=32, padding='same', kernel_initializer='he_normal')(x)
 
         outputs = x
         return models.Model(inputs, outputs)
@@ -78,12 +78,18 @@ class FCN(Network):
         x = self._conv_relu(x, 4096, 1)
         x = layers.Dropout(rate=0.5)(x)
 
-        x = layers.Conv2D(num_classes, 1)(x)
-        x = layers.Conv2DTranspose(num_classes, 4, strides=2, padding='same')(x)
-        c4 = layers.Conv2D(num_classes, 1)(c4)
+        x = layers.Conv2D(num_classes, 1, kernel_initializer='he_normal')(x)
+        x = layers.Conv2DTranspose(num_classes, 4,
+                                   strides=2,
+                                   padding='same',
+                                   kernel_initializer='he_normal')(x)
+        c4 = layers.Conv2D(num_classes, 1, kernel_initializer='he_normal')(c4)
         x = layers.Add()([x, c4])
 
-        x = layers.Conv2DTranspose(num_classes, 32, strides=16, padding='same')(x)
+        x = layers.Conv2DTranspose(num_classes, 32,
+                                   strides=16,
+                                   padding='same',
+                                   kernel_initializer='he_normal')(x)
 
         outputs = x
         return models.Model(inputs, outputs)
@@ -107,16 +113,25 @@ class FCN(Network):
         x = self._conv_relu(x, 4096, 1)
         x = layers.Dropout(rate=0.5)(x)
 
-        x = layers.Conv2D(num_classes, 1)(x)
-        x = layers.Conv2DTranspose(num_classes, 4, strides=2, padding='same')(x)
+        x = layers.Conv2D(num_classes, 1, kernel_initializer='he_normal')(x)
+        x = layers.Conv2DTranspose(num_classes, 4,
+                                   strides=2,
+                                   padding='same',
+                                   kernel_initializer='he_normal')(x)
         c4 = layers.Conv2D(num_classes, 1)(c4)
         x = layers.Add()([x, c4])
 
-        x = layers.Conv2DTranspose(num_classes, 4, strides=2, padding='same', )(x)
+        x = layers.Conv2DTranspose(num_classes, 4,
+                                   strides=2,
+                                   padding='same',
+                                   kernel_initializer='he_normal')(x)
         c3 = layers.Conv2D(num_classes, 1)(c3)
         x = layers.Add()([x, c3])
 
-        x = layers.Conv2DTranspose(num_classes, 16, strides=8, padding='same')(x)
+        x = layers.Conv2DTranspose(num_classes, 16,
+                                   strides=8,
+                                   padding='same',
+                                   kernel_initializer='he_normal')(x)
 
         outputs = x
         return models.Model(inputs, outputs)

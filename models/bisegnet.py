@@ -6,7 +6,7 @@ The implementation of BiSegNet based on Tensorflow.
 @Project: https://github.com/luyanger1799/amazing-semantic-segmentation
 
 """
-from utils.layers import GlobalAveragePooling2D
+from utils import layers as my_layers
 from models import Network
 import tensorflow as tf
 
@@ -38,7 +38,7 @@ class BiSegNet(Network):
         return self._bisegnet(inputs)
 
     def _conv_block(self, x, filters, kernel_size=3, strides=1):
-        x = layers.Conv2D(filters, kernel_size, strides, padding='same')(x)
+        x = layers.Conv2D(filters, kernel_size, strides, padding='same', kernel_initializer='he_normal')(x)
         x = layers.BatchNormalization()(x)
         x = layers.ReLU()(x)
         return x
@@ -47,8 +47,8 @@ class BiSegNet(Network):
         # Global average pooling
         _, _, _, c = backend.int_shape(x)
 
-        glb = GlobalAveragePooling2D(keep_dims=True)(x)
-        glb = layers.Conv2D(c, 1, strides=1)(glb)
+        glb = my_layers.GlobalAveragePooling2D(keep_dims=True)(x)
+        glb = layers.Conv2D(c, 1, strides=1, kernel_initializer='he_normal')(glb)
         glb = layers.BatchNormalization()(glb)
         glb = layers.Activation(activation='sigmoid')(glb)
 
@@ -63,9 +63,9 @@ class BiSegNet(Network):
         # Global average pooling
         _, _, _, c = backend.int_shape(inputs)
 
-        glb = GlobalAveragePooling2D(keep_dims=True)(inputs)
-        glb = layers.Conv2D(filters, 1, strides=1, activation='relu')(glb)
-        glb = layers.Conv2D(filters, 1, strides=1, activation='sigmoid')(glb)
+        glb = my_layers.GlobalAveragePooling2D(keep_dims=True)(inputs)
+        glb = layers.Conv2D(filters, 1, strides=1, activation='relu', kernel_initializer='he_normal')(glb)
+        glb = layers.Conv2D(filters, 1, strides=1, activation='sigmoid', kernel_initializer='he_normal')(glb)
 
         x = layers.Multiply()([inputs, glb])
 
@@ -96,7 +96,7 @@ class BiSegNet(Network):
         c4 = self._attention_refinement_module(c4)
         c5 = self._attention_refinement_module(c5)
 
-        glb = GlobalAveragePooling2D(keep_dims=True)(c5)
+        glb = my_layers.GlobalAveragePooling2D(keep_dims=True)(c5)
         c5 = layers.Multiply()([c5, glb])
 
         # combining the paths
@@ -108,7 +108,7 @@ class BiSegNet(Network):
         x = self._feature_fusion_module(sx, cx, num_classes)
 
         x = layers.UpSampling2D(size=(8, 8), interpolation='bilinear')(x)
-        x = layers.Conv2D(num_classes, 1, 1)(x)
+        x = layers.Conv2D(num_classes, 1, 1, kernel_initializer='he_normal')(x)
 
         outputs = x
 

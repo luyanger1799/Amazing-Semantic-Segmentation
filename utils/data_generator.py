@@ -6,7 +6,7 @@ The implementation of Data Generator based on Tensorflow.
 @Project: https://github.com/luyanger1799/amazing-semantic-segmentation
 
 """
-from keras_preprocessing.image import Iterator
+from tensorflow.python.keras.preprocessing.image import Iterator
 from keras_applications import imagenet_utils
 from utils.utils import *
 import tensorflow as tf

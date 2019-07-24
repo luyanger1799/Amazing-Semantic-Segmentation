@@ -6,8 +6,8 @@ The implementation of DeepLabV3 based on Tensorflow.
 @Project: https://github.com/luyanger1799/amazing-semantic-segmentation
 
 """
+from utils import layers as my_layers
 from models import Network
-from utils.layers import GlobalAveragePooling2D
 import tensorflow as tf
 
 layers = tf.keras.layers
@@ -68,7 +68,7 @@ class DeepLabV3(Network):
                                      block=chr(ord('b') + i),
                                      dilation=dilation[1] * multi_grid[i])
         x = self._aspp(x, 256)
-        x = layers.Conv2D(num_classes, 1, strides=1)(x)
+        x = layers.Conv2D(num_classes, 1, strides=1, kernel_initializer='he_normal')(x)
         x = layers.UpSampling2D(size=(16, 16), interpolation='bilinear')(x)
 
         outputs = x
@@ -76,7 +76,7 @@ class DeepLabV3(Network):
 
     def _aspp(self, x, out_filters):
         xs = list()
-        x1 = layers.Conv2D(out_filters, 1, strides=1)(x)
+        x1 = layers.Conv2D(out_filters, 1, strides=1, kernel_initializer='he_normal')(x)
         xs.append(x1)
 
         for i in range(3):
@@ -85,13 +85,13 @@ class DeepLabV3(Network):
                                padding='same',
                                dilation_rate=6 * (i + 1))(x)
             xs.append(xi)
-        img_pool = GlobalAveragePooling2D(keep_dims=True)(x)
-        img_pool = layers.Conv2D(out_filters, 1, 1)(img_pool)
+        img_pool = my_layers.GlobalAveragePooling2D(keep_dims=True)(x)
+        img_pool = layers.Conv2D(out_filters, 1, 1, kernel_initializer='he_normal')(img_pool)
         img_pool = layers.UpSampling2D(size=self.aspp_size, interpolation='bilinear')(img_pool)
         xs.append(img_pool)
 
-        x = layers.Concatenate()(xs)
-        x = layers.Conv2D(out_filters, 1, strides=1)(x)
+        x = my_layers.Concatenate(out_size=self.aspp_size)(xs)
+        x = layers.Conv2D(out_filters, 1, strides=1, kernel_initializer='he_normal')(x)
         x = layers.BatchNormalization()(x)
 
         return x
@@ -119,21 +119,21 @@ class DeepLabV3(Network):
         bn_name_base = 'bn' + str(stage) + block + '_branch'
 
         x = layers.Conv2D(filters1, (1, 1),
-
+                          kernel_initializer='he_normal',
                           name=conv_name_base + '2a')(input_tensor)
         x = layers.BatchNormalization(axis=bn_axis, name=bn_name_base + '2a')(x)
         x = layers.Activation('relu')(x)
 
         x = layers.Conv2D(filters2, kernel_size,
                           padding='same',
-
+                          kernel_initializer='he_normal',
                           name=conv_name_base + '2b',
                           dilation_rate=dilation)(x)
         x = layers.BatchNormalization(axis=bn_axis, name=bn_name_base + '2b')(x)
         x = layers.Activation('relu')(x)
 
         x = layers.Conv2D(filters3, (1, 1),
-
+                          kernel_initializer='he_normal',
                           name=conv_name_base + '2c')(x)
         x = layers.BatchNormalization(axis=bn_axis, name=bn_name_base + '2c')(x)
 
@@ -177,18 +177,30 @@ class DeepLabV3(Network):
 
         strides = (1, 1) if dilation > 1 else strides
 
-        x = layers.Conv2D(filters1, (1, 1), strides=strides, name=conv_name_base + '2a')(input_tensor)
+        x = layers.Conv2D(filters1, (1, 1),
+                          strides=strides,
+                          name=conv_name_base + '2a',
+                          kernel_initializer='he_normal')(input_tensor)
         x = layers.BatchNormalization(axis=bn_axis, name=bn_name_base + '2a')(x)
         x = layers.Activation('relu')(x)
 
-        x = layers.Conv2D(filters2, kernel_size, padding='same', name=conv_name_base + '2b', dilation_rate=dilation)(x)
+        x = layers.Conv2D(filters2, kernel_size,
+                          padding='same',
+                          name=conv_name_base + '2b',
+                          kernel_initializer='he_normal',
+                          dilation_rate=dilation)(x)
         x = layers.BatchNormalization(axis=bn_axis, name=bn_name_base + '2b')(x)
         x = layers.Activation('relu')(x)
 
-        x = layers.Conv2D(filters3, (1, 1), name=conv_name_base + '2c')(x)
+        x = layers.Conv2D(filters3, (1, 1),
+                          name=conv_name_base + '2c',
+                          kernel_initializer='he_normal')(x)
         x = layers.BatchNormalization(axis=bn_axis, name=bn_name_base + '2c')(x)
 
-        shortcut = layers.Conv2D(filters3, (1, 1), strides=strides, name=conv_name_base + '1')(input_tensor)
+        shortcut = layers.Conv2D(filters3, (1, 1),
+                                 strides=strides,
+                                 name=conv_name_base + '1',
+                                 kernel_initializer='he_normal')(input_tensor)
         shortcut = layers.BatchNormalization(axis=bn_axis, name=bn_name_base + '1')(shortcut)
 
         x = layers.add([x, shortcut])

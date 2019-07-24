@@ -6,7 +6,7 @@ The implementation of DenseASPP based on Tensorflow.
 @Project: https://github.com/luyanger1799/amazing-semantic-segmentation
 
 """
-from utils.layers import Concatenate
+from utils import layers as my_layers
 from models import Network
 import tensorflow as tf
 
@@ -53,12 +53,15 @@ class DenseASPP(Network):
     def _dilated_conv_block(self, inputs, filters, kernel_size=3, rate=1):
         x = layers.BatchNormalization()(inputs)
         x = layers.ReLU()(x)
-        x = layers.Conv2D(filters, kernel_size, padding='same', dilation_rate=rate)(x)
+        x = layers.Conv2D(filters, kernel_size,
+                          padding='same',
+                          dilation_rate=rate,
+                          kernel_initializer='he_normal')(x)
         return x
 
     def _denseaspp(self, inputs):
         _, inputs_h, inputs_w, _ = backend.int_shape(inputs)
-        aspp_size = inputs_h//8, inputs_w//8
+        aspp_size = inputs_h // 8, inputs_w // 8
         num_classes = self.num_classes
 
         c5 = self.encoder(inputs, output_stages='c5')
@@ -68,27 +71,27 @@ class DenseASPP(Network):
         d3 = self._dilated_conv_block(d3, 64, 3, rate=3)
 
         # Second block rate=6
-        d4 = Concatenate(out_size=aspp_size)([c5, d3])
+        d4 = my_layers.Concatenate(out_size=aspp_size)([c5, d3])
         d4 = self._dilated_conv_block(d4, 256, 1)
         d4 = self._dilated_conv_block(d4, 64, 3, rate=6)
 
         # Third block rate=12
-        d5 = Concatenate(out_size=aspp_size)([c5, d3, d4])
+        d5 = my_layers.Concatenate(out_size=aspp_size)([c5, d3, d4])
         d5 = self._dilated_conv_block(d5, 256, 1)
         d5 = self._dilated_conv_block(d5, 64, 3, rate=12)
 
         # Forth block rate=18
-        d6 = Concatenate(out_size=aspp_size)([c5, d3, d4, d5])
+        d6 = my_layers.Concatenate(out_size=aspp_size)([c5, d3, d4, d5])
         d6 = self._dilated_conv_block(d6, 256, 1)
         d6 = self._dilated_conv_block(d6, 64, 3, rate=18)
 
         # Fifth block rate=24
-        d7 = Concatenate(out_size=aspp_size)([c5, d3, d4, d5, d6])
+        d7 = my_layers.Concatenate(out_size=aspp_size)([c5, d3, d4, d5, d6])
         d7 = self._dilated_conv_block(d7, 256, 1)
         d7 = self._dilated_conv_block(d7, 64, 3, rate=24)
 
-        x = Concatenate(out_size=aspp_size)([c5, d3, d4, d5, d6, d7])
-        x = layers.Conv2D(num_classes, 1, strides=1)(x)
+        x = my_layers.Concatenate(out_size=aspp_size)([c5, d3, d4, d5, d6, d7])
+        x = layers.Conv2D(num_classes, 1, strides=1, kernel_initializer='he_normal')(x)
         x = layers.UpSampling2D(size=(8, 8), interpolation='bilinear')(x)
 
         outputs = x
