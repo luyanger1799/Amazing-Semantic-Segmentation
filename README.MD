@@ -138,7 +138,8 @@ Similarly, you can evaluate the model on your own dataset:
 ```buildoutcfg
 python test.py --model FCN-8s --base_model ResNet50 --dataset "dataset_path" --num_classes "num_classes" --weights "weights_path"
 ```
-**Note:** If the parameter "weights" is None, the weigths saved in default path will be loaded.\
+**Note:** If the parameter "weights" is None, the weigths saved in default path will be loaded.  
+
 **Predicting:** 
 You can get the prediction of a single RGB image as this:
 ```buildoutcfg

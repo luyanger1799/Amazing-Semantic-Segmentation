@@ -45,12 +45,12 @@
     <session id="-493018745">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
+          <entry key="project.closed" value="7" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.open.time.8" value="2" />
+          <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -71,7 +71,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="MD" value="2762" />
+          <entry key="MD" value="2766" />
           <entry key="Python Console" value="391" />
           <entry key="py" value="9255" />
           <entry key="txt" value="24" />
@@ -80,7 +80,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="BuildoutCfg" value="28" />
-          <entry key="Markdown" value="2734" />
+          <entry key="Markdown" value="2738" />
           <entry key="PLAIN_TEXT" value="24" />
           <entry key="Python" value="9646" />
         </counts>
@@ -113,7 +113,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-387">
+            <state relative-caret-position="990">
               <caret line="74" column="92" selection-start-line="74" selection-start-column="92" selection-end-line="74" selection-end-column="92" />
               <folding>
                 <element signature="e#179#230#0" expanded="true" />
@@ -156,8 +156,8 @@
         <entry file="file://$PROJECT_DIR$/README.MD">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="-67">
-                <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
+              <first_editor relative-caret-position="1993">
+                <caret line="141" lean-forward="true" selection-start-line="141" selection-end-line="141" />
               </first_editor>
               <second_editor />
             </state>
@@ -466,7 +466,7 @@
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.2494043" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49722" visible="true" weight="0.49315068" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="0" sideWeight="0.49722" visible="true" weight="0.49315068" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50039715" side_tool="true" weight="0.32876712" />
       <window_info anchor="bottom" id="Python Console" order="2" sideWeight="0.4988086" weight="0.32876712" />
       <window_info anchor="bottom" id="Message" order="3" />
@@ -788,6 +788,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="74" column="92" selection-start-line="74" selection-start-column="92" selection-end-line="74" selection-end-column="92" />
+          <folding>
+            <element signature="e#179#230#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/denseaspp.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -839,21 +849,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-387">
-          <caret line="74" column="92" selection-start-line="74" selection-start-column="92" selection-end-line="74" selection-end-column="92" />
-          <folding>
-            <element signature="e#179#230#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.MD">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-67">
-            <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
+          <first_editor relative-caret-position="1993">
+            <caret line="141" lean-forward="true" selection-start-line="141" selection-end-line="141" />
           </first_editor>
           <second_editor />
         </state>
