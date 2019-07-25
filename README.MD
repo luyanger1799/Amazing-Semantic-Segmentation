@@ -138,7 +138,6 @@ If you only want to use the model in your own training code, you can do as this:
 from builders.model_builder import builder
 
 model, base_model = builder(num_classes, input_size, model='SegNet', base_model=None)
-
 ```
 **Note:** If you don't give the parameter "base_model", the default backbone will be used.
 
