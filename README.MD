@@ -59,6 +59,10 @@ The folds of your dataset must satisfy the following structures:
 - Tensorflow `pip install tensorflow-gpu` version >= 1.14
 ***
 ## Usage
+**Download:**
+You can down load the project through this command:  
+`git clone git@github.com:luyanger1799/Amazing-Semantic-Segmentation.git`  
+
 **Training:** 
 The project contains complete codes for training, testing and predicting. 
 And you can perform a simple command as this to build a model on your dataset:
