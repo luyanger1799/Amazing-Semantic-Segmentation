@@ -159,8 +159,8 @@ python predict.py --model FCN-8s --base_model ResNet50 --num_classes "num_classe
 The installation of this project from PyPI will be supported later.
 ***
 ## Feedback
-*If you like this work, please give me a star! And if you find
-any errors or have any suggestions, please contact me.*  
+If you like this work, please give me a star! And if you find
+any errors or have any suggestions, please contact me.  
 
 **GitHub:** `luyanger1799`\
 **Email:** `luyanger1799@outlook.com` 
