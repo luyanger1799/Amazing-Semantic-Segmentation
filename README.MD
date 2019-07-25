@@ -40,15 +40,15 @@ The project supports these backbone models as follows, and your can choose suita
 The folds of your dataset must satisfy the following structures:
 ```buildoutcfg
 - dataset
-   -train
-      -images
-      -labels
-   -valid
-      -images
-      -labels
-   -test
-      -images
-      -labels
+   - train
+      - images
+      - labels
+   - valid
+      - images
+      - labels
+   - test
+      - images
+      - labels
 
 ```
 ***
