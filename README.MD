@@ -155,7 +155,20 @@ python predict.py --model FCN-8s --base_model ResNet50 --num_classes "num_classe
 ``` 
 ***
 ## PyPI
-The installation of this project from PyPI will be supported later.
+Alternatively, you can install the project through PyPI.
+```
+pip install semantic-segmentation
+```
+And you can use model_builders to build different models or directly call the class of semantic segmentation.
+```
+from semantic_segmentation import model_builders
+net, base_net = model_builders(num_classes, input_size, model='SegNet', base_model=None)
+```
+or
+```
+from semantic_segmentation import models
+net = models.FCN(num_classes, version='FCN-8s')(input_size=input_size)
+```
 ***
 ## Feedback
 If you like this work, please give me a star! And if you find
