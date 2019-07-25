@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b215c218-5374-4f10-9c8a-860cf6d8c8f2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
-    </list>
+    <list default="true" id="b215c218-5374-4f10-9c8a-860cf6d8c8f2" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,8 +155,8 @@
         <entry file="file://$PROJECT_DIR$/README.MD">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="512">
-                <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
+              <first_editor relative-caret-position="167">
+                <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
               </first_editor>
               <second_editor />
             </state>
@@ -309,6 +307,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -325,7 +324,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -465,9 +463,9 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" weight="0.2494043" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2494043" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="0" sideWeight="0.49722" visible="true" weight="0.49315068" />
+      <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49722" visible="true" weight="0.49315068" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50039715" side_tool="true" weight="0.32876712" />
       <window_info anchor="bottom" id="Python Console" order="2" sideWeight="0.4988086" weight="0.32876712" />
       <window_info anchor="bottom" id="Message" order="3" />
@@ -853,8 +851,8 @@
     <entry file="file://$PROJECT_DIR$/README.MD">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="512">
-            <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
+          <first_editor relative-caret-position="167">
+            <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
           </first_editor>
           <second_editor />
         </state>
