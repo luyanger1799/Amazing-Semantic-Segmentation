@@ -17,7 +17,7 @@ The project supports these semantic segmentation models as follows:
 ```
 ***
 ## Base Model
-The project supports these backbone models as follows, and we can choose different base model for our model.
+The project supports these backbone models as follows, and your can choose suitable base model according to your needs.
 ```buildoutcfg
 1. VGG16/19
 2. ResNet50/101/152
@@ -28,7 +28,7 @@ The project supports these backbone models as follows, and we can choose differe
 ```
 ***
 ## Dataset Setting
-The folds of dataset should have following structures:
+The folds of your dataset must satisfy the following structures:
 ```buildoutcfg
 - dataset
    -train
@@ -124,13 +124,15 @@ optional arguments:
   --weights WEIGHTS     The path of weights to be loaded.
 
 ```
-If you only want to use the model rather than the whole training code, you can do as this:
+If you only want to use the model with your own training code, you can do as this:
 ```buildoutcfg
 from builders.model_builder import builder
 
 model, base_model = builder(num_classes, input_size, model='SegNet', base_model=None)
 
 ```
+**Note:** If you don't give the parameter "base_model", the default backbone will be used.
+
 **Testing:** 
 Similarly, you can evaluate the model on your own dataset:
 ```buildoutcfg
@@ -142,7 +144,6 @@ You can get the prediction of a single RGB image as this:
 ```buildoutcfg
 python predict.py --model FCN-8s --base_model ResNet50 --num_classes "num_classes" --weights "weights_path" --image_path "image_path"
 ``` 
-**Note:** If you don't give the parameter "base_model", the default backbone will be used.
 ***
 ## PyPI
 The installation of this project from PyPI will be supported later.
