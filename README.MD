@@ -60,7 +60,7 @@ The folds of your dataset must satisfy the following structures:
 ***
 ## Usage
 **Download:**
-You can down load the project through this command:  
+You can download the project through this command:  
 `git clone git@github.com:luyanger1799/Amazing-Semantic-Segmentation.git`  
 
 **Training:** 
