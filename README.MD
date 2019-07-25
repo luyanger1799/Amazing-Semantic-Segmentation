@@ -1,31 +1,40 @@
 # Amazing-Semantic-Segmentation
-Semantic Segmentation on Tensorflow && keras (include FCN, UNet, SegNet, PSPNet, PAN, RefineNet, DeepLabV3, DeepLabV3+, DenseASPP, BiSegNet)
+![python](https://img.shields.io/badge/Python-3.x-ff69b4.svg)
+![tensorflow](https://img.shields.io/badge/Tensorflow-1.14%7C2.0-brightgreen.svg)
+![OpenCV](https://img.shields.io/badge/OpenCV-3.x%7C4.x-orange.svg)
+![Apache](https://img.shields.io/badge/Apache-2.0-blue.svg)
+
+>Amazing Semantic Segmentation on Tensorflow && keras (include FCN, UNet, SegNet, PSPNet, PAN, RefineNet, DeepLabV3, DeepLabV3+, DenseASPP, BiSegNet ...)
 ***
 ## Models
 The project supports these semantic segmentation models as follows:
-```buildoutcfg
-1. FCN-8s/16s/32s
-2. UNet
-3. SegNet/Bayesian-SegNet
-4. PSPNet
-5. RefineNet
-6. PAN
-7. DeepLabV3
-8. DeepLabV3+
-9. BiSegNet
 
-```
+>1. FCN-8s/16s/32s - [Fully Convolutional Networks for Semantic Segmentation](https://arxiv.org/pdf/1411.4038.pdf)
+>2. UNet - [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/pdf/1505.04597.pdf)
+>3. SegNet - [SegNet:A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation](https://arxiv.org/pdf/1511.00561.pdf)
+>4. Bayesian-SegNet - [Bayesian SegNet: Model Uncertainty in Deep Convolutional Encoder-Decoder Architectures for Scene Understanding](https://arxiv.org/pdf/1511.02680v2.pdf)
+>5. PSPNet - [Pyramid Scene Parsing Network](https://arxiv.org/pdf/1612.01105.pdf)
+>6. RefineNet - [RefineNet: Multi-Path Refinement Networks for High-Resolution Semantic Segmentation](https://arxiv.org/pdf/1611.06612.pdf)
+>7. PAN - [Pyramid Attention Network for Semantic Segmentation](https://arxiv.org/pdf/1805.10180.pdf)
+>8. DeepLabV3 - [Rethinking Atrous Convolution for Semantic Image Segmentation](https://arxiv.org/pdf/1706.05587.pdf)
+>9. DeepLabV3+ - [Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation](https://arxiv.org/pdf/1802.02611.pdf)
+>10. BiSegNet - [BiSeNet: Bilateral Segmentation Network for Real-time Semantic Segmentation](https://arxiv.org/pdf/1808.00897.pdf)
+
+
 ***
-## Base Model
+## Base Models
 The project supports these backbone models as follows, and your can choose suitable base model according to your needs.
-```buildoutcfg
-1. VGG16/19
-2. ResNet50/101/152
-3. DenseNet121/169/201/264
-4. MobileNetV1/V2
-5. Xception/Xception-DeepLab
 
-```
+>1. VGG16/19 - [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/pdf/1409.1556.pdf)
+>2. ResNet50/101/152 - [Deep Residual Learning for Image Recognition](https://arxiv.org/pdf/1512.03385.pdf)
+>3. DenseNet121/169/201/264 - [Densely Connected Convolutional Networks](https://arxiv.org/pdf/1608.06993.pdf)
+>4. MobileNetV1 - [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/pdf/1704.04861.pdf)
+>5. MobileNetV2 - [MobileNetV2: Inverted Residuals and Linear Bottlenecks](https://arxiv.org/pdf/1801.04381.pdf)
+>6. Xception - [Xception: Deep Learning with Depthwise Separable Convolutions](https://arxiv.org/pdf/1610.02357.pdf)
+>7. Xception-DeepLab - [Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation](https://arxiv.org/pdf/1802.02611.pdf)
+
+
+
 ***
 ## Dataset Setting
 The folds of your dataset must satisfy the following structures:
@@ -124,7 +133,7 @@ optional arguments:
   --weights WEIGHTS     The path of weights to be loaded.
 
 ```
-If you only want to use the model with your own training code, you can do as this:
+If you only want to use the model in your own training code, you can do as this:
 ```buildoutcfg
 from builders.model_builder import builder
 
@@ -149,10 +158,9 @@ python predict.py --model FCN-8s --base_model ResNet50 --num_classes "num_classe
 ## PyPI
 The installation of this project from PyPI will be supported later.
 ***
-## Others
+## Feedback
+**GitHub:** `luyanger1799`\
+**Email:** `luyanger1799@outlook.com`  
+
 If you like this work, please give me a star! And if you find
 any errors or have any suggestions, please contact me.
-***
-## Contact
-**GitHub:** `luyanger1799`\
-**Email:** `luyanger1799@outlook.com`

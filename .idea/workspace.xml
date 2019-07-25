@@ -47,10 +47,11 @@
         <counts>
           <entry key="project.closed" value="7" />
           <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -71,7 +72,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="MD" value="2766" />
+          <entry key="MD" value="3152" />
           <entry key="Python Console" value="391" />
           <entry key="py" value="9255" />
           <entry key="txt" value="24" />
@@ -80,7 +81,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="BuildoutCfg" value="28" />
-          <entry key="Markdown" value="2738" />
+          <entry key="Markdown" value="3124" />
           <entry key="PLAIN_TEXT" value="24" />
           <entry key="Python" value="9646" />
         </counts>
@@ -156,8 +157,8 @@
         <entry file="file://$PROJECT_DIR$/README.MD">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="1993">
-                <caret line="141" lean-forward="true" selection-start-line="141" selection-end-line="141" />
+              <first_editor relative-caret-position="512">
+                <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
               </first_editor>
               <second_editor />
             </state>
@@ -852,8 +853,8 @@
     <entry file="file://$PROJECT_DIR$/README.MD">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1993">
-            <caret line="141" lean-forward="true" selection-start-line="141" selection-end-line="141" />
+          <first_editor relative-caret-position="512">
+            <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
           </first_editor>
           <second_editor />
         </state>
