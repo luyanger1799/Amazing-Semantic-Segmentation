@@ -18,7 +18,8 @@ The project supports these semantic segmentation models as follows:
 >7. PAN - [Pyramid Attention Network for Semantic Segmentation](https://arxiv.org/pdf/1805.10180.pdf)
 >8. DeepLabV3 - [Rethinking Atrous Convolution for Semantic Image Segmentation](https://arxiv.org/pdf/1706.05587.pdf)
 >9. DeepLabV3+ - [Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation](https://arxiv.org/pdf/1802.02611.pdf)
->10. BiSegNet - [BiSeNet: Bilateral Segmentation Network for Real-time Semantic Segmentation](https://arxiv.org/pdf/1808.00897.pdf)
+>10. DenseASPP - [DenseASPP for Semantic Segmentation in Street Scenes](http://openaccess.thecvf.com/content_cvpr_2018/papers/Yang_DenseASPP_for_Semantic_CVPR_2018_paper.pdf)
+>11. BiSegNet - [BiSeNet: Bilateral Segmentation Network for Real-time Semantic Segmentation](https://arxiv.org/pdf/1808.00897.pdf)
 
 
 ***
