@@ -1,8 +1,8 @@
 # Amazing-Semantic-Segmentation
-![python](https://img.shields.io/badge/Python-3.x-ff69b4.svg)
-![tensorflow](https://img.shields.io/badge/Tensorflow-1.14%7C2.0-brightgreen.svg)
-![OpenCV](https://img.shields.io/badge/OpenCV-3.x%7C4.x-orange.svg)
-![Apache](https://img.shields.io/badge/Apache-2.0-blue.svg)
+[![python](https://img.shields.io/badge/Python-3.x-ff69b4.svg)](https://github.com/luyanger1799/Amazing-Semantic-Segmentation.git)
+[![tensorflow](https://img.shields.io/badge/Tensorflow-1.14%7C2.0-brightgreen.svg)](https://github.com/luyanger1799/Amazing-Semantic-Segmentation.git)
+[![OpenCV](https://img.shields.io/badge/OpenCV-3.x%7C4.x-orange.svg)](https://github.com/luyanger1799/Amazing-Semantic-Segmentation.git)
+[![Apache](https://img.shields.io/badge/Apache-2.0-blue.svg)](https://github.com/luyanger1799/Amazing-Semantic-Segmentation.git)
 
 >Amazing Semantic Segmentation on Tensorflow && keras (include FCN, UNet, SegNet, PSPNet, PAN, RefineNet, DeepLabV3, DeepLabV3+, DenseASPP, BiSegNet ...)
 ***
@@ -159,8 +159,8 @@ python predict.py --model FCN-8s --base_model ResNet50 --num_classes "num_classe
 The installation of this project from PyPI will be supported later.
 ***
 ## Feedback
-**GitHub:** `luyanger1799`\
-**Email:** `luyanger1799@outlook.com`  
+*If you like this work, please give me a star! And if you find
+any errors or have any suggestions, please contact me.*  
 
-If you like this work, please give me a star! And if you find
-any errors or have any suggestions, please contact me.
+**GitHub:** `luyanger1799`\
+**Email:** `luyanger1799@outlook.com` 
