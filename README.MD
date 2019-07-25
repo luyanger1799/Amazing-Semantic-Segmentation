@@ -50,7 +50,6 @@ The folds of your dataset must satisfy the following structures:
    - test
       - images
       - labels
-
 ```
 ***
 ## Installation
