@@ -1,6 +1,6 @@
 # Amazing-Semantic-Segmentation
 [![python](https://img.shields.io/badge/Python-3.x-ff69b4.svg)](https://github.com/luyanger1799/Amazing-Semantic-Segmentation.git)
-[![tensorflow](https://img.shields.io/badge/Tensorflow-1.14%7C2.0-brightgreen.svg)](https://github.com/luyanger1799/Amazing-Semantic-Segmentation.git)
+[![tensorflow](https://img.shields.io/badge/Tensorflow-1.1x%7C2.0-brightgreen.svg)](https://github.com/luyanger1799/Amazing-Semantic-Segmentation.git)
 [![OpenCV](https://img.shields.io/badge/OpenCV-3.x%7C4.x-orange.svg)](https://github.com/luyanger1799/Amazing-Semantic-Segmentation.git)
 [![Apache](https://img.shields.io/badge/Apache-2.0-blue.svg)](https://github.com/luyanger1799/Amazing-Semantic-Segmentation.git)
 
@@ -56,7 +56,10 @@ The folds of your dataset must satisfy the following structures:
 - Numpy `pip install numpy`
 - Pillow `pip install pillow`
 - OpenCV `pip install opencv-python`
-- Tensorflow `pip install tensorflow-gpu` version >= 1.14
+- Tensorflow `pip install tensorflow-gpu` version 1.1x|2.0  
+
+**Note:** The recommended version of tensorflow-gpu is 1.14 or 2.0. And if your tensorflow version is lower, you 
+need to modify some api. 
 ***
 ## Usage
 **Download:**
