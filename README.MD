@@ -56,10 +56,10 @@ The folds of your dataset must satisfy the following structures:
 - Numpy `pip install numpy`
 - Pillow `pip install pillow`
 - OpenCV `pip install opencv-python`
-- Tensorflow `pip install tensorflow-gpu` version 1.1x|2.0  
+- Tensorflow `pip install tensorflow-gpu`  
 
 **Note:** The recommended version of tensorflow-gpu is 1.14 or 2.0. And if your tensorflow version is lower, you 
-need to modify some api. 
+need to modify some API. 
 ***
 ## Usage
 **Download:**
