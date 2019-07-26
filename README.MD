@@ -59,7 +59,7 @@ The folds of your dataset must satisfy the following structures:
 - Tensorflow `pip install tensorflow-gpu`  
 
 **Note:** The recommended version of tensorflow-gpu is 1.14 or 2.0. And if your tensorflow version is lower, you 
-need to modify some API. 
+need to modify some API or upgrade your tensorflow. 
 ***
 ## Usage
 **Download:**
