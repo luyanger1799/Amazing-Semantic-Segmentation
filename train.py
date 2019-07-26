@@ -10,7 +10,7 @@ from utils.data_generator import ImageDataGenerator
 from utils.helpers import get_dataset_info, check_related_path
 from utils.losses import categorical_crossentropy_with_logits
 from utils.learning_rate import poly_decay
-from utils.metrics import mean_iou
+from utils.metrics import MeanIoU
 from builders import builder
 import tensorflow as tf
 import argparse
@@ -72,7 +72,9 @@ if args.weights is not None:
     net.load_weights(args.weights)
 
 # compile the model
-net.compile(optimizer=tf.keras.optimizers.Adam(), loss=categorical_crossentropy_with_logits(), metrics=[mean_iou])
+net.compile(optimizer=tf.keras.optimizers.Adam(),
+            loss=categorical_crossentropy_with_logits,
+            metrics=[MeanIoU(args.num_classes)])
 # data generator
 # data augmentation setting
 train_gen = ImageDataGenerator(rotation_range=args.rotation,

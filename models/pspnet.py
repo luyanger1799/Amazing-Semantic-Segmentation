@@ -6,7 +6,7 @@ The implementation of PSPNet based on Tensorflow.
 @Project: https://github.com/luyanger1799/amazing-semantic-segmentation
 
 """
-from utils import layers as my_layers
+from utils import layers as custom_layers
 from models import Network
 import tensorflow as tf
 
@@ -65,7 +65,7 @@ class PSPNet(Network):
                      (h // 6, w // 6)]
 
         # pyramid pooling
-        x1 = my_layers.GlobalAveragePooling2D(keep_dims=True)(x)
+        x1 = custom_layers.GlobalAveragePooling2D(keep_dims=True)(x)
         x1 = layers.Conv2D(512, 1, strides=1, kernel_initializer='he_normal')(x1)
         x1 = layers.BatchNormalization()(x1)
         x1 = layers.ReLU()(x1)
