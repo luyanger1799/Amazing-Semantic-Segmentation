@@ -174,6 +174,9 @@ from semantic_segmentation import models
 net = models.FCN(num_classes, version='FCN-8s')(input_size=input_size)
 ```
 ***
+## Pre-trained
+Due to my limited computing resources, there is no pre-training model yet. And maybe it will be added in the future.
+***
 ## Feedback
 If you like this work, please give me a star! And if you find
 any errors or have any suggestions, please contact me.  
