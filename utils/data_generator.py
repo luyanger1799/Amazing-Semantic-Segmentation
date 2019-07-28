@@ -57,16 +57,20 @@ class DataIterator(Iterator):
                 if np.random.randint(2):
                     image, label = random_horizontal_flip(image, label, self.image_data_generator.horizontal_flip)
                 # random brightness
-                image, label = random_brightness(image, label, self.image_data_generator.brightness_range)
+                if np.random.randint(2):
+                    image, label = random_brightness(image, label, self.image_data_generator.brightness_range)
                 # random rotation
-                image, label = random_rotation(image, label, self.image_data_generator.rotation_range)
+                if np.random.randint(2):
+                    image, label = random_rotation(image, label, self.image_data_generator.rotation_range)
                 # random channel shift
-                image, label = random_channel_shift(image, label, self.image_data_generator.channel_shift_range)
+                if np.random.randint(2):
+                    image, label = random_channel_shift(image, label, self.image_data_generator.channel_shift_range)
                 # random zoom
-                image, label = random_zoom(image, label, self.image_data_generator.zoom_range)
+                if np.random.randint(2):
+                    image, label = random_zoom(image, label, self.image_data_generator.zoom_range)
 
             image = imagenet_utils.preprocess_input(image.astype('float32'), data_format='channels_last',
-                                                    mode='tf')
+                                                    mode='torch')
             label = one_hot(label, self.num_classes)
 
             batch_x[i], batch_y[i] = image, label

@@ -43,6 +43,10 @@ def random_crop(image, label, crop_size):
 
 
 def random_zoom(image, label, zoom_range):
+    if np.ndim(label) == 2:
+        label = np.expand_dims(label, axis=-1)
+    assert np.ndim(label) == 3
+
     if np.isscalar(zoom_range):
         zx, zy = np.random.uniform(1 - zoom_range, 1 + zoom_range, 2)
     elif len(zoom_range) == 2:
@@ -59,6 +63,10 @@ def random_zoom(image, label, zoom_range):
 
 
 def random_brightness(image, label, brightness_range):
+    if np.ndim(label) == 2:
+        label = np.expand_dims(label, axis=-1)
+    assert np.ndim(label) == 3
+
     if brightness_range is not None:
         if isinstance(brightness_range, (tuple, list)) and len(brightness_range) == 2:
             brightness = np.random.uniform(brightness_range[0], brightness_range[1])
@@ -85,6 +93,10 @@ def random_vertical_flip(image, label, v_flip):
 
 
 def random_rotation(image, label, rotation_range):
+    if np.ndim(label) == 2:
+        label = np.expand_dims(label, axis=-1)
+    assert np.ndim(label) == 3
+
     if rotation_range > 0.:
         theta = np.random.uniform(-rotation_range, rotation_range)
         # rotate it!
@@ -94,6 +106,10 @@ def random_rotation(image, label, rotation_range):
 
 
 def random_channel_shift(image, label, channel_shift_range):
+    if np.ndim(label) == 2:
+        label = np.expand_dims(label, axis=-1)
+    assert np.ndim(label) == 3
+
     if channel_shift_range > 0:
         channel_shift_intensity = np.random.uniform(-channel_shift_range, channel_shift_range)
         image = keras_image.apply_channel_shift(image, channel_shift_intensity, channel_axis=2)
@@ -101,6 +117,10 @@ def random_channel_shift(image, label, channel_shift_range):
 
 
 def one_hot(label, num_classes):
+    if np.ndim(label) == 3:
+        label = np.squeeze(label, axis=-1)
+    assert np.ndim(label) == 2
+
     heat_map = np.ones(shape=label.shape[0:2] + (num_classes,))
     for i in range(num_classes):
         heat_map[:, :, i] = np.equal(label, i).astype('float32')
@@ -109,5 +129,3 @@ def one_hot(label, num_classes):
 
 def decode_one_hot(one_hot_map):
     return np.argmax(one_hot_map, axis=-1)
-
-
