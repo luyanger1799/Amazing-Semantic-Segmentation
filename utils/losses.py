@@ -16,5 +16,5 @@ def categorical_crossentropy_with_logits(y_true, y_pred):
     cross_entropy = backend.categorical_crossentropy(y_true, y_pred, from_logits=True)
 
     # compute loss
-    loss = backend.mean(backend.sum(cross_entropy, axis=[1, 2, 3]))
+    loss = backend.mean(backend.sum(cross_entropy, axis=[1, 2]))
     return loss
