@@ -9,7 +9,7 @@ The implementation of some metrics based on Tensorflow.
 import tensorflow as tf
 
 
-class MeanIoU(tf.metrics.MeanIoU):
+class MeanIoU(tf.keras.metrics.MeanIoU):
     def update_state(self, y_true, y_pred, sample_weight=None):
         # sparse code
         y_true = tf.argmax(y_true, axis=-1)
