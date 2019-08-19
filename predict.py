@@ -71,7 +71,7 @@ print("")
 image = cv2.resize(load_image(args.image_path),
                    dsize=(args.crop_width, args.crop_height),
                    interpolation=cv2.INTER_LINEAR)
-image = imagenet_utils.preprocess_input(image, data_format='channels_last', mode='tf')
+image = imagenet_utils.preprocess_input(image.astype(np.float32), data_format='channels_last', mode='tf')
 
 # image processing
 if np.ndim(image) == 3:
