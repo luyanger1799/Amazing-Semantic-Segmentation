@@ -69,7 +69,7 @@ print("")
 
 # load_image
 image = cv2.resize(load_image(args.image_path),
-                   dsize=(args.crop_width, args.crop_heigth),
+                   dsize=(args.crop_width, args.crop_height),
                    interpolation=cv2.INTER_LINEAR)
 image = imagenet_utils.preprocess_input(image, data_format='channels_last', mode='tf')
 
