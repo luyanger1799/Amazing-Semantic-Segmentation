@@ -6,13 +6,14 @@ The file defines the predict process of a single RGB image.
 @Project: https://github.com/luyanger1799/amazing-semantic-segmentation
 
 """
-from keras_applications import imagenet_utils
+from utils.helpers import check_related_path, get_colored_info, color_encode
 from utils.utils import load_image, decode_one_hot
-from utils.helpers import check_related_path
+from keras_applications import imagenet_utils
 from builders import builder
 from PIL import Image
 import numpy as np
 import argparse
+import sys
 import cv2
 import os
 
@@ -67,29 +68,46 @@ print("Num Classes -->", args.num_classes)
 
 print("")
 
-# load_image
-image = cv2.resize(load_image(args.image_path),
-                   dsize=(args.crop_width, args.crop_height),
-                   interpolation=cv2.INTER_LINEAR)
-image = imagenet_utils.preprocess_input(image.astype(np.float32), data_format='channels_last', mode='tf')
+# load_images
+image_names=list()
+if os.path.isfile(args.image_path):
+    image_names.append(args.image_path)
+else:
+    for f in os.listdir(args.image_path):
+        image_names.append(os.path.join(args.image_path, f))
+    image_names.sort()
 
-# image processing
-if np.ndim(image) == 3:
-    image = np.expand_dims(image, axis=0)
-assert np.ndim(image) == 4
+# get color info
+_, color_values = get_colored_info('class_dict.csv')
 
-# get the prediction
-prediction = net.predict_on_batch(image)
+for i, name in enumerate(image_names):
+    sys.stdout.write('\rRunning test image %d / %d'%(i+1, len(image_names)))
+    sys.stdout.flush()
 
-if np.ndim(prediction) == 4:
-    prediction = np.squeeze(prediction, axis=0)
+    image = cv2.resize(load_image(name),
+                       dsize=(args.crop_width, args.crop_height))
+    image = imagenet_utils.preprocess_input(image.astype(np.float32), data_format='channels_last', mode='torch')
 
-# decode one-hot
-prediction = decode_one_hot(prediction)
+    # image processing
+    if np.ndim(image) == 3:
+        image = np.expand_dims(image, axis=0)
+    assert np.ndim(image) == 4
 
-# get PIL file
-prediction = Image.fromarray(np.uint8(prediction))
+    # get the prediction
+    prediction = net.predict(image)
 
-# save the prediction
-_, file_name = os.path.split(args.image_path)
-prediction.save(os.path.join(paths['prediction_path'], file_name))
+    if np.ndim(prediction) == 4:
+        prediction = np.squeeze(prediction, axis=0)
+
+    # decode one-hot
+    prediction = decode_one_hot(prediction)
+
+    # color encode
+    prediction = color_encode(prediction, color_values)
+
+    # get PIL file
+    prediction = Image.fromarray(np.uint8(prediction))
+
+    # save the prediction
+    _, file_name = os.path.split(name)
+    prediction.save(os.path.join(paths['prediction_path'], file_name))

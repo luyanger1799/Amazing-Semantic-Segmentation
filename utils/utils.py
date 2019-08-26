@@ -19,7 +19,7 @@ def load_image(name):
 
 def resize_image(image, label, target_size=None):
     if target_size is not None:
-        image = cv2.resize(image, dsize=target_size, interpolation=cv2.INTER_LINEAR)
+        image = cv2.resize(image, dsize=target_size)
         label = cv2.resize(label, dsize=target_size, interpolation=cv2.INTER_NEAREST)
     return image, label
 
@@ -29,7 +29,7 @@ def random_crop(image, label, crop_size):
     crop_h, crop_w = crop_size
 
     if h < crop_h or w < crop_w:
-        image = cv2.resize(image, (max(w, crop_w), max(h, crop_h)), interpolation=cv2.INTER_LINEAR)
+        image = cv2.resize(image, (max(w, crop_w), max(h, crop_h)))
         label = cv2.resize(label, (max(w, crop_w), max(h, crop_h)), interpolation=cv2.INTER_NEAREST)
 
     h, w = image.shape[0:2]

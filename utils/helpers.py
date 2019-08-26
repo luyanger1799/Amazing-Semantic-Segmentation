@@ -6,7 +6,9 @@ The implementation of some helpers.
 @Project: https://github.com/luyanger1799/amazing-semantic-segmentation
 
 """
+import numpy as np
 import warnings
+import csv
 import os
 
 
@@ -87,3 +89,28 @@ def check_related_path(current_path):
              'weights_path': weights_path,
              'prediction_path': prediction_path}
     return paths
+
+
+def get_colored_info(csv_path):
+    if not os.path.exists(csv_path):
+        raise ValueError('The path of csv file does not exist!')
+
+    filename, file_extension = os.path.splitext(csv_path)
+    if not file_extension=='.csv':
+        raise ValueError('File is not a CSV!')
+
+    class_names =[]
+    label_values=[]
+    with open(csv_path, 'r') as csvfile:
+        file_reader = csv.reader(csvfile, delimiter=',')
+        header=next(file_reader)
+        for row in file_reader:
+            class_names.append(row[0])
+            label_values.append([int(row[1]), int(row[2]), int(row[3])])
+    return class_names, label_values
+
+
+def color_encode(image, color_values):
+    color_codes=np.array(color_values)
+    x = color_codes[image.astype(int)]
+    return x
