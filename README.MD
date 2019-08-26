@@ -4,7 +4,7 @@
 [![OpenCV](https://img.shields.io/badge/OpenCV-3.x%7C4.x-orange.svg)](https://github.com/luyanger1799/Amazing-Semantic-Segmentation.git)
 [![Apache](https://img.shields.io/badge/Apache-2.0-blue.svg)](https://github.com/luyanger1799/Amazing-Semantic-Segmentation.git)
 
->Amazing Semantic Segmentation on Tensorflow && keras (include FCN, UNet, SegNet, PSPNet, PAN, RefineNet, DeepLabV3, DeepLabV3+, DenseASPP, BiSegNet ...)
+>Amazing Semantic Segmentation on Tensorflow && Keras (include FCN, UNet, SegNet, PSPNet, PAN, RefineNet, DeepLabV3, DeepLabV3+, DenseASPP, BiSegNet ...)
 ***
 ## Models
 The project supports these semantic segmentation models as follows:
