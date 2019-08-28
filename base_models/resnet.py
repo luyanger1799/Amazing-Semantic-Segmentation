@@ -54,6 +54,10 @@ class ResNet(object):
             bn_axis = 3
         else:
             bn_axis = 1
+
+        if block > 'z':
+            block = chr(ord(block) - ord('z') + ord('A') - 1)
+
         conv_name_base = 'res' + str(stage) + block + '_branch'
         bn_name_base = 'bn' + str(stage) + block + '_branch'
 
