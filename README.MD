@@ -37,6 +37,13 @@ The project supports these backbone models as follows, and your can choose suita
 
 
 ***
+## Losses
+The project supports these loss functions:
+>1. Cross Entropy
+>2. Focal Loss
+>3. ...
+
+***
 ## Dataset Setting
 The folds of your dataset must satisfy the following structures:
 ```buildoutcfg
@@ -75,9 +82,9 @@ python train.py --model FCN-8s --base_model ResNet50 --dataset "dataset_path" --
 The detailed command line parameters are as follows:
 ```buildoutcfg
 usage: train.py [-h] --model MODEL [--base_model BASE_MODEL] --dataset DATASET
-                --num_classes NUM_CLASSES [--random_crop RANDOM_CROP]
-                [--crop_height CROP_HEIGHT] [--crop_width CROP_WIDTH]
-                [--batch_size BATCH_SIZE]
+                [--loss {CE,Focal_Loss}] --num_classes NUM_CLASSES
+                [--random_crop RANDOM_CROP] [--crop_height CROP_HEIGHT]
+                [--crop_width CROP_WIDTH] [--batch_size BATCH_SIZE]
                 [--valid_batch_size VALID_BATCH_SIZE]
                 [--num_epochs NUM_EPOCHS] [--initial_epoch INITIAL_EPOCH]
                 [--h_flip H_FLIP] [--v_flip V_FLIP]
@@ -100,6 +107,8 @@ optional arguments:
   --base_model BASE_MODEL
                         Choose the backbone model.
   --dataset DATASET     The path of the dataset.
+  --loss {CE,Focal_Loss}
+                        The loss function for traing.
   --num_classes NUM_CLASSES
                         The number of classes to be segmented.
   --random_crop RANDOM_CROP
@@ -138,6 +147,7 @@ optional arguments:
   --random_seed RANDOM_SEED
                         The random shuffle seed.
   --weights WEIGHTS     The path of weights to be loaded.
+
 
 ```
 If you only want to use the model in your own training code, you can do as this:
