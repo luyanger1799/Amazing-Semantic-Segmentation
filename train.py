@@ -8,7 +8,7 @@ The file defines the training process.
 """
 from utils.data_generator import ImageDataGenerator
 from utils.helpers import get_dataset_info, check_related_path
-from utils.losses import categorical_crossentropy_with_logits
+from utils.losses import *
 from utils.learning_rate import poly_decay
 from utils.metrics import MeanIoU
 from builders import builder
@@ -30,6 +30,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--model', help='Choose the semantic segmentation methods.', type=str, required=True)
 parser.add_argument('--base_model', help='Choose the backbone model.', type=str, default=None)
 parser.add_argument('--dataset', help='The path of the dataset.', type=str, required=True)
+parser.add_argument('--loss', help='The loss function for traing.', type=str, default=None, choices=['CE', 'Focal_Loss'])
 parser.add_argument('--num_classes', help='The number of classes to be segmented.', type=int, required=True)
 parser.add_argument('--random_crop', help='Whether to randomly crop the image.', type=str2bool, default=False)
 parser.add_argument('--crop_height', help='The height to crop the image.', type=int, default=256)
@@ -71,9 +72,14 @@ if args.weights is not None:
     print('Loading the weights...')
     net.load_weights(args.weights)
 
+# chose loss
+losses = {'CE': categorical_crossentropy_with_logits,
+          'Focal_Loss': focal_loss}
+loss = losses[args.loss] if args.loss is not None else categorical_crossentropy_with_logits
+
 # compile the model
 net.compile(optimizer=tf.keras.optimizers.Adam(),
-            loss=categorical_crossentropy_with_logits,
+            loss=loss,
             metrics=[MeanIoU(args.num_classes)])
 # data generator
 # data augmentation setting

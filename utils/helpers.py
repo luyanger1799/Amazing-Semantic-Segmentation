@@ -115,3 +115,4 @@ def color_encode(image, color_values):
     x = color_codes[image.astype(int)]
 
     return x
+
