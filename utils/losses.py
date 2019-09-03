@@ -26,6 +26,6 @@ def focal_loss(alpha=0.25, gamma=2.0):
         # compute ce loss
         cross_entropy = backend.categorical_crossentropy(y_true, y_pred, from_logits=False)
         # compute weights
-        weights = backend.max(alpha * backend.pow(1 - y_pred, gamma) * y_true, axis=-1)
+        weights = backend.sum(alpha * backend.pow(1 - y_pred, gamma) * y_true, axis=-1)
         return backend.mean(backend.sum(weights * cross_entropy, axis=[1, 2]))
     return loss
