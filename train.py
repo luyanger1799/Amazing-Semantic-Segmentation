@@ -74,7 +74,7 @@ if args.weights is not None:
 
 # chose loss
 losses = {'CE': categorical_crossentropy_with_logits,
-          'Focal_Loss': focal_loss}
+          'Focal_Loss': focal_loss()}
 loss = losses[args.loss] if args.loss is not None else categorical_crossentropy_with_logits
 
 # compile the model
