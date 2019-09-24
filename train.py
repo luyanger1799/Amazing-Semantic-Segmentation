@@ -30,7 +30,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--model', help='Choose the semantic segmentation methods.', type=str, required=True)
 parser.add_argument('--base_model', help='Choose the backbone model.', type=str, default=None)
 parser.add_argument('--dataset', help='The path of the dataset.', type=str, required=True)
-parser.add_argument('--loss', help='The loss function for traing.', type=str, default=None, choices=['CE', 'Focal_Loss'])
+parser.add_argument('--loss', help='The loss function for traing.', type=str, default=None,
+                    choices=['CE', 'Focal_Loss'])
 parser.add_argument('--num_classes', help='The number of classes to be segmented.', type=int, required=True)
 parser.add_argument('--random_crop', help='Whether to randomly crop the image.', type=str2bool, default=False)
 parser.add_argument('--crop_height', help='The height to crop the image.', type=int, default=256)
@@ -52,6 +53,7 @@ parser.add_argument('--num_valid_images', help='The number of images used for va
 parser.add_argument('--data_shuffle', help='Whether to shuffle the data.', type=str2bool, default=True)
 parser.add_argument('--random_seed', help='The random shuffle seed.', type=int, default=None)
 parser.add_argument('--weights', help='The path of weights to be loaded.', type=str, default=None)
+parser.add_argument('--steps_per_epoch', help='The training steps of each epoch', type=int, default=None)
 
 args = parser.parse_args()
 
@@ -83,7 +85,8 @@ net.compile(optimizer=tf.keras.optimizers.Adam(),
             metrics=[MeanIoU(args.num_classes)])
 # data generator
 # data augmentation setting
-train_gen = ImageDataGenerator(rotation_range=args.rotation,
+train_gen = ImageDataGenerator(random_crop=args.random_crop,
+                               rotation_range=args.rotation,
                                brightness_range=args.brightness,
                                zoom_range=args.zoom_range,
                                channel_shift_range=args.channel_shift,
@@ -111,7 +114,7 @@ valid_generator = valid_gen.flow(images_list=valid_image_names,
 # checkpoint setting
 model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
     filepath=os.path.join(paths['checkpoints_path'],
-                          '{model}_based_on_{base}_'.format(model=args.model, base=base_model) + 'ep-{epoch:02d}.h5'),
+                          '{model}_based_on_{base}_'.format(model=args.model, base=base_model) + 'ep_{epoch:02d}.h5'),
     save_best_only=True, period=args.checkpoint_freq)
 # tensorboard setting
 tensorboard = tf.keras.callbacks.TensorBoard(log_dir=paths['logs_path'])
@@ -145,7 +148,7 @@ print("\tChannel Shift -->", args.channel_shift)
 print("")
 
 # some other training parameters
-steps_per_epoch = len(train_image_names) // args.batch_size
+steps_per_epoch = len(train_image_names) // args.batch_size if not args.steps_per_epoch else args.steps_per_epoch
 validation_steps = args.num_valid_images // args.valid_batch_size
 
 # training...

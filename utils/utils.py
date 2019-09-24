@@ -10,6 +10,7 @@ from keras_preprocessing import image as keras_image
 from PIL import Image
 import numpy as np
 import cv2
+import skimage
 
 
 def load_image(name):
@@ -19,8 +20,8 @@ def load_image(name):
 
 def resize_image(image, label, target_size=None):
     if target_size is not None:
-        image = cv2.resize(image, dsize=target_size)
-        label = cv2.resize(label, dsize=target_size, interpolation=cv2.INTER_NEAREST)
+        image = cv2.resize(image, dsize=target_size[::-1])
+        label = cv2.resize(label, dsize=target_size[::-1], interpolation=cv2.INTER_NEAREST)
     return image, label
 
 
