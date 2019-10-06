@@ -41,7 +41,8 @@ The project supports these backbone models as follows, and your can choose suita
 The project supports these loss functions:
 >1. Cross Entropy
 >2. Focal Loss
->3. ...
+>3. MIoU Loss
+>4. ...
 
 ***
 ## Dataset Setting
