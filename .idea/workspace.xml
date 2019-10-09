@@ -78,7 +78,7 @@
         <counts>
           <entry key="MD" value="3302" />
           <entry key="Python Console" value="683" />
-          <entry key="py" value="12037" />
+          <entry key="py" value="12081" />
           <entry key="txt" value="24" />
         </counts>
       </usages-collector>
@@ -87,7 +87,7 @@
           <entry key="BuildoutCfg" value="28" />
           <entry key="Markdown" value="3274" />
           <entry key="PLAIN_TEXT" value="24" />
-          <entry key="Python" value="12720" />
+          <entry key="Python" value="12764" />
         </counts>
       </usages-collector>
     </session>
@@ -111,7 +111,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
+            <state relative-caret-position="21">
               <caret line="76" column="12" selection-start-line="76" selection-start-column="12" selection-end-line="76" selection-end-column="12" />
               <folding>
                 <element signature="e#179#230#0" expanded="true" />
@@ -144,10 +144,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/losses.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+            <state relative-caret-position="180">
+              <caret line="39" column="56" selection-start-line="39" selection-start-column="56" selection-end-line="39" selection-end-column="56" />
               <folding>
-                <marker date="1570605900237" expanded="true" signature="1171:1173" ph="..." />
+                <marker date="1570611952006" expanded="true" signature="1195:1197" ph="..." />
               </folding>
             </state>
           </provider>
@@ -772,16 +772,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="76" column="12" selection-start-line="76" selection-start-column="12" selection-end-line="76" selection-end-column="12" />
-          <folding>
-            <element signature="e#179#230#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base_models/resnet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3090">
@@ -836,12 +826,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="76" column="12" selection-start-line="76" selection-start-column="12" selection-end-line="76" selection-end-column="12" />
+          <folding>
+            <element signature="e#179#230#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/utils/losses.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+        <state relative-caret-position="180">
+          <caret line="39" column="56" selection-start-line="39" selection-start-column="56" selection-end-line="39" selection-end-column="56" />
           <folding>
-            <marker date="1570605900237" expanded="true" signature="1171:1173" ph="..." />
+            <marker date="1570611952006" expanded="true" signature="1195:1197" ph="..." />
           </folding>
         </state>
       </provider>
