@@ -34,9 +34,9 @@ def focal_loss(alpha=0.25, gamma=2.0):
 
 def miou_loss(weights=None, num_classes=2):
     if weights is not None:
-        weights = tf.Variable(weights)
+        weights = tf.Variable(weights, dtype=tf.float32)
     else:
-        weights = tf.Variable([1] * num_classes)
+        weights = tf.Variable([1] * num_classes, dtype=tf.float32)
 
     def loss(y_true, y_pred):
         y_pred = backend.softmax(y_pred)
