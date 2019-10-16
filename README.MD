@@ -42,7 +42,8 @@ The project supports these loss functions:
 >1. Cross Entropy
 >2. Focal Loss
 >3. MIoU Loss
->4. ...
+>4. Self Balanced Focal Loss `original`
+>5. ...
 
 ***
 ## Dataset Setting
