@@ -47,7 +47,7 @@ parser.add_argument('--rotation', help='The angle to randomly rotate the image.'
 parser.add_argument('--zoom_range', help='The times for zooming the image.', type=float, default=0., nargs='+')
 parser.add_argument('--channel_shift', help='The channel shift range.', type=float, default=0.)
 parser.add_argument('--data_aug_rate', help='The rate of data augmentation.', type=float, default=0.)
-parser.add_argument('--checkpoint_freq', help='How often to save a checkpoint.', type=int, default=5)
+parser.add_argument('--checkpoint_freq', help='How often to save a checkpoint.', type=int, default=1)
 parser.add_argument('--validation_freq', help='How often to perform validation.', type=int, default=1)
 parser.add_argument('--num_valid_images', help='The number of images used for validation.', type=int, default=20)
 parser.add_argument('--data_shuffle', help='Whether to shuffle the data.', type=str2bool, default=True)
@@ -115,8 +115,9 @@ valid_generator = valid_gen.flow(images_list=valid_image_names,
 # checkpoint setting
 model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
     filepath=os.path.join(paths['checkpoints_path'],
-                          '{model}_based_on_{base}_'.format(model=args.model, base=base_model) + 'ep_{epoch:02d}.h5'),
-    save_best_only=True, period=args.checkpoint_freq)
+                          '{model}_based_on_{base}_'.format(model=args.model, base=base_model) +
+                          'miou_{val_mean_io_u:04f}_' + 'ep_{epoch:02d}.h5'),
+    save_best_only=True, period=args.checkpoint_freq, monitor='val_mean_io_u', mode='max')
 # tensorboard setting
 tensorboard = tf.keras.callbacks.TensorBoard(log_dir=paths['logs_path'])
 # learning rate scheduler setting
