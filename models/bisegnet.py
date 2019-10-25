@@ -112,4 +112,4 @@ class BiSegNet(Network):
 
         outputs = x
 
-        return models.Model(inputs, outputs)
+        return models.Model(inputs, outputs, name=self.version)

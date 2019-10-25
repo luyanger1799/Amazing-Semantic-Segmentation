@@ -84,7 +84,7 @@ class DeepLabV3Plus(Network):
         x = layers.UpSampling2D(size=(4, 4), interpolation='bilinear')(x)
 
         outputs = x
-        return models.Model(inputs, outputs)
+        return models.Model(inputs, outputs, name=self.version)
 
     def _conv_bn_relu(self, x, filters, kernel_size, strides=1):
         x = layers.Conv2D(filters, kernel_size, strides=strides, padding='same')(x)

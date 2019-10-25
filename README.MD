@@ -34,8 +34,6 @@ The project supports these backbone models as follows, and your can choose suita
 >6. Xception - [Xception: Deep Learning with Depthwise Separable Convolutions](https://arxiv.org/pdf/1610.02357.pdf)
 >7. Xception-DeepLab - [Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation](https://arxiv.org/pdf/1802.02611.pdf)
 
-
-
 ***
 ## Losses
 The project supports these loss functions:
@@ -46,6 +44,23 @@ The project supports these loss functions:
 >5. ...
 
 ***
+## Optimizers
+The project supports these optimizers:
+>1. SGD
+>2. Adam
+>3. Nadam
+>4. AdamW
+>5. NadamW
+>5. SGDW
+***
+
+***
+## Learning Rate Scheduler
+The project supports these learning rate schedule strategies:
+>1. step decay
+>2. poly decay
+>3. cosine decay
+
 ## Dataset Setting
 The folds of your dataset must satisfy the following structures:
 ```buildoutcfg

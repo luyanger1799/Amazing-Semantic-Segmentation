@@ -58,7 +58,7 @@ class FCN(Network):
         x = layers.Conv2DTranspose(num_classes, 64, strides=32, padding='same', kernel_initializer='he_normal')(x)
 
         outputs = x
-        return models.Model(inputs, outputs)
+        return models.Model(inputs, outputs, name=self.version)
 
     def _fcn_16s(self, inputs):
         num_classes = self.num_classes
@@ -92,7 +92,7 @@ class FCN(Network):
                                    kernel_initializer='he_normal')(x)
 
         outputs = x
-        return models.Model(inputs, outputs)
+        return models.Model(inputs, outputs, name=self.version)
 
     def _fcn_8s(self, inputs):
         num_classes = self.num_classes
@@ -134,4 +134,4 @@ class FCN(Network):
                                    kernel_initializer='he_normal')(x)
 
         outputs = x
-        return models.Model(inputs, outputs)
+        return models.Model(inputs, outputs, name=self.version)

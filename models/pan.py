@@ -132,4 +132,4 @@ class PAN(Network):
 
         outputs = y
 
-        return models.Model(inputs, outputs)
+        return models.Model(inputs, outputs, name=self.version)

@@ -1,5 +1,5 @@
 """
-The implementation of somes losses based on Tensorflow.
+The implementation of some losses based on Tensorflow.
 
 @Author: Yang Lu
 @Github: https://github.com/luyanger1799

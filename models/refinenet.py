@@ -64,7 +64,7 @@ class RefineNet(Network):
 
         outputs = x
 
-        return models.Model(inputs, outputs)
+        return models.Model(inputs, outputs, name=self.version)
 
     def _residual_conv_unit(self, inputs, features=256, kernel_size=3):
         x = layers.ReLU()(inputs)

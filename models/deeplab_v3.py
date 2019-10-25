@@ -72,7 +72,7 @@ class DeepLabV3(Network):
         x = layers.UpSampling2D(size=(16, 16), interpolation='bilinear')(x)
 
         outputs = x
-        return models.Model(inputs, outputs)
+        return models.Model(inputs, outputs, name=self.version)
 
     def _aspp(self, x, out_filters):
         xs = list()

@@ -95,4 +95,4 @@ class DenseASPP(Network):
         x = layers.UpSampling2D(size=(8, 8), interpolation='bilinear')(x)
 
         outputs = x
-        return models.Model(inputs, outputs)
+        return models.Model(inputs, outputs, name=self.version)

@@ -8,9 +8,11 @@ The file defines the training process.
 """
 from utils.data_generator import ImageDataGenerator
 from utils.helpers import get_dataset_info, check_related_path
+from utils.optimizers import *
 from utils.losses import *
-from utils.learning_rate import poly_decay
+from utils.learning_rate import *
 from utils.metrics import MeanIoU
+from utils import utils
 from builders import builder
 import tensorflow as tf
 import argparse
@@ -29,10 +31,10 @@ def str2bool(v):
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', help='Choose the semantic segmentation methods.', type=str, required=True)
 parser.add_argument('--base_model', help='Choose the backbone model.', type=str, default=None)
-parser.add_argument('--dataset', help='The path of the dataset.', type=str, required=True)
+parser.add_argument('--dataset', help='The path of the dataset.', type=str, default='CamVid')
 parser.add_argument('--loss', help='The loss function for traing.', type=str, default=None,
-                    choices=['CE', 'Focal_Loss', 'MIoU_Loss', 'Self_Balanced_Focal_Loss'])
-parser.add_argument('--num_classes', help='The number of classes to be segmented.', type=int, required=True)
+                    choices=['ce', 'focal_loss', 'miou_loss', 'self_balanced_focal_loss'])
+parser.add_argument('--num_classes', help='The number of classes to be segmented.', type=int, default=32)
 parser.add_argument('--random_crop', help='Whether to randomly crop the image.', type=str2bool, default=False)
 parser.add_argument('--crop_height', help='The height to crop the image.', type=int, default=256)
 parser.add_argument('--crop_width', help='The width to crop the image.', type=int, default=256)
@@ -54,6 +56,12 @@ parser.add_argument('--data_shuffle', help='Whether to shuffle the data.', type=
 parser.add_argument('--random_seed', help='The random shuffle seed.', type=int, default=None)
 parser.add_argument('--weights', help='The path of weights to be loaded.', type=str, default=None)
 parser.add_argument('--steps_per_epoch', help='The training steps of each epoch', type=int, default=None)
+parser.add_argument('--lr_scheduler', help='The strategy to schedule learning rate.', type=str, default='cosine_decay',
+                    choices=['step_decay', 'poly_decay', 'cosine_decay'])
+parser.add_argument('--warmup_steps', help='The steps for lr warm up.', type=int, default=5)
+parser.add_argument('--learning_rate', help='The initial learning rate.', type=float, default=3e-4)
+parser.add_argument('--optimizer', help='The optimizer for training.', type=str, default='adam',
+                    choices=['sgd', 'adam', 'nadam', 'adamw', 'nadamw', 'sgdw'])
 
 args = parser.parse_args()
 
@@ -75,14 +83,36 @@ if args.weights is not None:
     net.load_weights(args.weights)
 
 # chose loss
-losses = {'CE': categorical_crossentropy_with_logits,
-          'Focal_Loss': focal_loss(),
-          'MIoU_Loss': miou_loss(num_classes=args.num_classes),
-          'Self_Balanced_Focal_Loss': self_balanced_focal_loss()}
+losses = {'ce': categorical_crossentropy_with_logits,
+          'focal_loss': focal_loss(),
+          'miou_loss': miou_loss(num_classes=args.num_classes),
+          'self_balanced_focal_loss': self_balanced_focal_loss()}
 loss = losses[args.loss] if args.loss is not None else categorical_crossentropy_with_logits
 
+# chose optimizer
+total_iterations = len(train_image_names) * args.num_epochs // args.batch_size
+wd_dict = utils.get_weight_decays(net)
+ordered_values = []
+weight_decays = utils.fill_dict_in_order(wd_dict, ordered_values)
+
+optimizers = {'adam': tf.keras.optimizers.Adam(learning_rate=args.learning_rate),
+              'nadam': tf.keras.optimizers.Nadam(learning_rate=args.learning_rate),
+              'sgd': tf.keras.optimizers.SGD(learning_rate=args.learning_rate, momentum=0.99),
+              'adamw': AdamW(learning_rate=args.learning_rate, batch_size=args.batch_size,
+                             total_iterations=total_iterations),
+              'nadamw': NadamW(learning_rate=args.learning_rate, batch_size=args.batch_size,
+                               total_iterations=total_iterations),
+              'sgdw': SGDW(learning_rate=args.learning_rate, momentum=0.99, batch_size=args.batch_size,
+                           total_iterations=total_iterations)}
+
+# lr schedule strategy
+lr_decays = {'step_decay': step_decay(args.learning_rate, args.num_epochs, args.warmup_steps),
+             'poly_decay': poly_decay(args.learning_rate, args.num_epochs, args.warmup_steps),
+             'cosine_decay': cosine_decay(args.num_epochs, args.learning_rate, warmup_steps=args.warmup_steps)}
+lr_decay = lr_decays[args.lr_scheduler]
+
 # compile the model
-net.compile(optimizer=tf.keras.optimizers.Adam(),
+net.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=args.learning_rate),
             loss=loss,
             metrics=[MeanIoU(args.num_classes)])
 # data generator
@@ -122,7 +152,7 @@ model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
 # tensorboard setting
 tensorboard = tf.keras.callbacks.TensorBoard(log_dir=paths['logs_path'])
 # learning rate scheduler setting
-learning_rate_scheduler = tf.keras.callbacks.LearningRateScheduler(poly_decay(lr=1e-3, max_epochs=args.num_epochs))
+learning_rate_scheduler = tf.keras.callbacks.LearningRateScheduler(lr_decay)
 
 callbacks = [model_checkpoint, tensorboard, learning_rate_scheduler]
 

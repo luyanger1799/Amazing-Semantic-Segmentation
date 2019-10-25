@@ -100,4 +100,4 @@ class SegNet(Network):
         x = layers.BatchNormalization()(x)
 
         outputs = x
-        return models.Model(inputs, outputs)
+        return models.Model(inputs, outputs, name=self.version)
