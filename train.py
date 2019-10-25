@@ -194,7 +194,7 @@ net.fit_generator(train_generator,
                   validation_freq=args.validation_freq,
                   max_queue_size=10,
                   workers=os.cpu_count(),
-                  use_multiprocessing=True,
+                  use_multiprocessing=False,
                   initial_epoch=args.initial_epoch)
 
 # save weights
