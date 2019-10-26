@@ -52,7 +52,6 @@ The project supports these optimizers:
 >4. AdamW
 >5. NadamW
 >5. SGDW
-***
 
 ***
 ## Learning Rate Scheduler
