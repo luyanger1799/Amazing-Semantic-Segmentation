@@ -8,6 +8,7 @@ The file defines the training process.
 """
 from utils.data_generator import ImageDataGenerator
 from utils.helpers import get_dataset_info, check_related_path
+from utils.callbacks import LearningRateScheduler
 from utils.optimizers import *
 from utils.losses import *
 from utils.learning_rate import *
@@ -58,7 +59,7 @@ parser.add_argument('--weights', help='The path of weights to be loaded.', type=
 parser.add_argument('--steps_per_epoch', help='The training steps of each epoch', type=int, default=None)
 parser.add_argument('--lr_scheduler', help='The strategy to schedule learning rate.', type=str, default='cosine_decay',
                     choices=['step_decay', 'poly_decay', 'cosine_decay'])
-parser.add_argument('--warmup_steps', help='The steps for lr warm up.', type=int, default=5)
+parser.add_argument('--lr_warmup', help='Whether to use lr warm up.', type=bool, default=False)
 parser.add_argument('--learning_rate', help='The initial learning rate.', type=float, default=3e-4)
 parser.add_argument('--optimizer', help='The optimizer for training.', type=str, default='adam',
                     choices=['sgd', 'adam', 'nadam', 'adamw', 'nadamw', 'sgdw'])
@@ -106,9 +107,9 @@ optimizers = {'adam': tf.keras.optimizers.Adam(learning_rate=args.learning_rate)
                            total_iterations=total_iterations)}
 
 # lr schedule strategy
-lr_decays = {'step_decay': step_decay(args.learning_rate, args.num_epochs, args.warmup_steps),
-             'poly_decay': poly_decay(args.learning_rate, args.num_epochs, args.warmup_steps),
-             'cosine_decay': cosine_decay(args.num_epochs, args.learning_rate, warmup_steps=args.warmup_steps)}
+lr_decays = {'step_decay': step_decay(args.learning_rate, args.num_epochs),
+             'poly_decay': poly_decay(args.learning_rate, args.num_epochs),
+             'cosine_decay': cosine_decay(args.num_epochs, args.learning_rate)}
 lr_decay = lr_decays[args.lr_scheduler]
 
 # compile the model
@@ -152,7 +153,7 @@ model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
 # tensorboard setting
 tensorboard = tf.keras.callbacks.TensorBoard(log_dir=paths['logs_path'])
 # learning rate scheduler setting
-learning_rate_scheduler = tf.keras.callbacks.LearningRateScheduler(lr_decay)
+learning_rate_scheduler = LearningRateScheduler(lr_decay, args.learning_rate, args.lr_warmup, verbose=1)
 
 callbacks = [model_checkpoint, tensorboard, learning_rate_scheduler]
 

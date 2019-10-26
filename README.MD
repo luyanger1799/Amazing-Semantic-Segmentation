@@ -60,6 +60,7 @@ The project supports these learning rate schedule strategies:
 >1. step decay
 >2. poly decay
 >3. cosine decay
+>4. warm up
 
 ## Dataset Setting
 The folds of your dataset must satisfy the following structures:
