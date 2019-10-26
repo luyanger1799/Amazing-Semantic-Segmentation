@@ -107,10 +107,20 @@ optimizers = {'adam': tf.keras.optimizers.Adam(learning_rate=args.learning_rate)
                            total_iterations=total_iterations)}
 
 # lr schedule strategy
-lr_decays = {'step_decay': step_decay(args.learning_rate, args.num_epochs),
-             'poly_decay': poly_decay(args.learning_rate, args.num_epochs),
-             'cosine_decay': cosine_decay(args.num_epochs, args.learning_rate)}
+if args.lr_warmup and args.num_epochs - 5 <= 0:
+    raise ValueError('num_epochs must be larger than 5 if lr warm up is used.')
+
+lr_decays = {'step_decay': step_decay(args.learning_rate, args.num_epochs - 5 if args.lr_warmup else args.num_epochs,
+                                      warmup=args.lr_warmup),
+             'poly_decay': poly_decay(args.learning_rate, args.num_epochs - 5 if args.lr_warmup else args.num_epochs,
+                                      warmup=args.lr_warmup),
+             'cosine_decay': cosine_decay(args.num_epochs - 5 if args.lr_warmup else args.num_epochs,
+                                          args.learning_rate, warmup=args.lr_warmup)}
 lr_decay = lr_decays[args.lr_scheduler]
+
+# training and validation steps
+steps_per_epoch = len(train_image_names) // args.batch_size if not args.steps_per_epoch else args.steps_per_epoch
+validation_steps = args.num_valid_images // args.valid_batch_size
 
 # compile the model
 net.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=args.learning_rate),
@@ -153,7 +163,8 @@ model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
 # tensorboard setting
 tensorboard = tf.keras.callbacks.TensorBoard(log_dir=paths['logs_path'])
 # learning rate scheduler setting
-learning_rate_scheduler = LearningRateScheduler(lr_decay, args.learning_rate, args.lr_warmup, verbose=1)
+learning_rate_scheduler = LearningRateScheduler(lr_decay, args.learning_rate, args.lr_warmup, steps_per_epoch,
+                                                verbose=1)
 
 callbacks = [model_checkpoint, tensorboard, learning_rate_scheduler]
 
@@ -180,10 +191,6 @@ print("\tZoom -->", args.zoom_range)
 print("\tChannel Shift -->", args.channel_shift)
 
 print("")
-
-# some other training parameters
-steps_per_epoch = len(train_image_names) // args.batch_size if not args.steps_per_epoch else args.steps_per_epoch
-validation_steps = args.num_valid_images // args.valid_batch_size
 
 # training...
 net.fit_generator(train_generator,
