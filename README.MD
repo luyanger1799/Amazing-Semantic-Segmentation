@@ -74,6 +74,9 @@ The folds of your dataset must satisfy the following structures:
 |  |-- test
 |  |  |-- images
 |  |  |-- labels
+|  |-- class_dict.csv
+|  |-- evaluated_classes
+
 ```
 ***
 ## Installation
@@ -187,6 +190,13 @@ You can get the prediction of a single RGB image as this:
 ```buildoutcfg
 python predict.py --model FCN-8s --base_model ResNet50 --num_classes "num_classes" --weights "weights_path" --image_path "image_path"
 ``` 
+
+**Evaluate:**
+If you already have the predictions of all test images or you don't want to evaluate all classes, you can do as this:
+```
+python evaluate.py --dataset 'dataset_path' --predictions 'prediction_path''
+```
+**Note:** You must specify the class to be evaluated in 'dataset/evaluated_classes.txt''.
 ***
 ## PyPI
 Alternatively, you can install the project through PyPI.
