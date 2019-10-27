@@ -196,7 +196,7 @@ If you already have the predictions of all test images or you don't want to eval
 ```
 python evaluate.py --dataset 'dataset_path' --predictions 'prediction_path'
 ```
-**Note:** You must specify the class to be evaluated in 'dataset/evaluated_classes.txt''.
+**Note:** You must specify the class to be evaluated in `dataset/evaluated_classes.txt`.
 ***
 ## PyPI
 Alternatively, you can install the project through PyPI.
