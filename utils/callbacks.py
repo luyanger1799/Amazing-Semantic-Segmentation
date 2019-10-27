@@ -26,6 +26,7 @@ class LearningRateScheduler(callbacks.Callback):
         self.verbose = verbose
         self.warmup_epochs = 5 if warmup else 0
         self.warmup_steps = int(steps_per_epoch) * self.warmup_epochs if warmup else 0
+        self.global_batch = 0
 
         if warmup and learning_rate is None:
             raise ValueError('learning_rate cannot be None if warmup is used.')
@@ -33,14 +34,15 @@ class LearningRateScheduler(callbacks.Callback):
             raise ValueError('steps_per_epoch cannot be None if warmup is used.')
 
     def on_train_batch_begin(self, batch, logs=None):
-        if batch < self.warmup_steps:
+        self.global_batch += 1
+        if self.global_batch < self.warmup_steps:
             if not hasattr(self.model.optimizer, 'lr'):
                 raise ValueError('Optimizer must have a "lr" attribute.')
-            lr = self.learning_rate * (batch + 1) / self.warmup_steps
+            lr = self.learning_rate * self.global_batch / self.warmup_steps
             backend.set_value(self.model.optimizer.lr, lr)
             if self.verbose > 0:
                 print('\nBatch %05d: LearningRateScheduler warming up learning '
-                      'rate to %s.' % (batch + 1, lr))
+                      'rate to %s.' % (self.global_batch, lr))
 
     def on_epoch_begin(self, epoch, logs=None):
         if not hasattr(self.model.optimizer, 'lr'):

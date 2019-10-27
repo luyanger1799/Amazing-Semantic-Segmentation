@@ -30,11 +30,13 @@ def str2bool(v):
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', help='Choose the semantic segmentation methods.', type=str, required=True)
 parser.add_argument('--base_model', help='Choose the backbone model.', type=str, default=None)
+parser.add_argument('--csv_file', help='The path of color code csv file.', type=str, default=None)
 parser.add_argument('--num_classes', help='The number of classes to be segmented.', type=int, required=True)
 parser.add_argument('--crop_height', help='The height to crop the image.', type=int, default=256)
 parser.add_argument('--crop_width', help='The width to crop the image.', type=int, default=256)
 parser.add_argument('--weights', help='The path of weights to be loaded.', type=str, default=None)
 parser.add_argument('--image_path', help='The path of predicted image.', type=str, required=True)
+parser.add_argument('--color_encode', help='Whether to color encode the prediction.', type=bool, default=True)
 
 args = parser.parse_args()
 
@@ -78,7 +80,12 @@ else:
     image_names.sort()
 
 # get color info
-_, color_values = get_colored_info('class_dict.csv')
+if args.color_csv is None:
+    csv_file = os.path.join('CamVid', 'class_dict.csv')
+else:
+    csv_file = args.csv_file
+
+_, color_values = get_colored_info(csv_file)
 
 for i, name in enumerate(image_names):
     sys.stdout.write('\rRunning test image %d / %d'%(i+1, len(image_names)))
@@ -103,7 +110,8 @@ for i, name in enumerate(image_names):
     prediction = decode_one_hot(prediction)
 
     # color encode
-    prediction = color_encode(prediction, color_values)
+    if args.color_encode:
+        prediction = color_encode(prediction, color_values)
 
     # get PIL file
     prediction = Image.fromarray(np.uint8(prediction))

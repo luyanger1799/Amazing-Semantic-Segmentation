@@ -93,7 +93,7 @@ def check_related_path(current_path):
 
 def get_colored_info(csv_path):
     if not os.path.exists(csv_path):
-        raise ValueError('The path of csv file does not exist!')
+        raise ValueError('The path \'{path:}\' of csv file does not exist!'.format(path=csv_path))
 
     filename, file_extension = os.path.splitext(csv_path)
     if not file_extension == '.csv':
@@ -110,9 +110,18 @@ def get_colored_info(csv_path):
     return class_names, label_values
 
 
+def get_evaluated_classes(file_path):
+    if not os.path.exists(file_path):
+        raise ValueError('The path of evaluated classes file does not exist!')
+
+    with open(file_path, 'r') as file:
+        evaluated_classes = list(map(lambda z: z.strip(), file.readlines()))
+
+    return evaluated_classes
+
+
 def color_encode(image, color_values):
     color_codes = np.array(color_values)
     x = color_codes[image.astype(int)]
 
     return x
-
