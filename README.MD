@@ -89,11 +89,11 @@ The folds of your dataset must satisfy the following structures:
 need to modify some API or upgrade your tensorflow. 
 ***
 ## Usage
-**Download:**
+### Download
 You can download the project through this command:  
 `git clone git@github.com:luyanger1799/Amazing-Semantic-Segmentation.git`  
 
-**Training:** 
+### Training
 The project contains complete codes for training, testing and predicting. 
 And you can perform a simple command as this to build a model on your dataset:
 ```buildoutcfg
@@ -178,20 +178,20 @@ model, base_model = builder(num_classes, input_size, model='SegNet', base_model=
 ```
 **Note:** If you don't give the parameter "base_model", the default backbone will be used.
 
-**Testing:** 
+### Testing 
 Similarly, you can evaluate the model on your own dataset:
 ```buildoutcfg
 python test.py --model FCN-8s --base_model ResNet50 --dataset "dataset_path" --num_classes "num_classes" --weights "weights_path"
 ```
 **Note:** If the parameter "weights" is None, the weigths saved in default path will be loaded.  
 
-**Predicting:** 
+###Predicting
 You can get the prediction of a single RGB image as this:
 ```buildoutcfg
 python predict.py --model FCN-8s --base_model ResNet50 --num_classes "num_classes" --weights "weights_path" --image_path "image_path"
 ``` 
 
-**Evaluating:**
+### Evaluating
 If you already have the predictions of all test images or you don't want to evaluate all classes, you can do as this:
 ```
 python evaluate.py --dataset 'dataset_path' --predictions 'prediction_path'
