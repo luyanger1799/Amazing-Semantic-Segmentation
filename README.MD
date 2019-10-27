@@ -185,7 +185,7 @@ python test.py --model FCN-8s --base_model ResNet50 --dataset "dataset_path" --n
 ```
 **Note:** If the parameter "weights" is None, the weigths saved in default path will be loaded.  
 
-###Predicting
+### Predicting
 You can get the prediction of a single RGB image as this:
 ```buildoutcfg
 python predict.py --model FCN-8s --base_model ResNet50 --num_classes "num_classes" --weights "weights_path" --image_path "image_path"
