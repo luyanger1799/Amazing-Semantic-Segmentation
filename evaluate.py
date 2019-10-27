@@ -92,4 +92,4 @@ for eval_cls in evaluated_classes:
 print('\n**********************************************')
 print('* The Mean IoU of all classes is as follows: *')
 print('**********************************************')
-print('Mean IoU: {mean_iou}'.format(mean_iou=np.mean(list(class_iou.values()))))
+print('Mean IoU: {mean_iou:.4f}'.format(mean_iou=np.mean(list(class_iou.values()))))
