@@ -36,7 +36,7 @@ parser.add_argument('--crop_height', help='The height to crop the image.', type=
 parser.add_argument('--crop_width', help='The width to crop the image.', type=int, default=256)
 parser.add_argument('--weights', help='The path of weights to be loaded.', type=str, default=None)
 parser.add_argument('--image_path', help='The path of predicted image.', type=str, required=True)
-parser.add_argument('--color_encode', help='Whether to color encode the prediction.', type=bool, default=True)
+parser.add_argument('--color_encode', help='Whether to color encode the prediction.', type=str2bool, default=True)
 
 args = parser.parse_args()
 
