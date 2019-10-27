@@ -191,10 +191,10 @@ You can get the prediction of a single RGB image as this:
 python predict.py --model FCN-8s --base_model ResNet50 --num_classes "num_classes" --weights "weights_path" --image_path "image_path"
 ``` 
 
-**Evaluate:**
+**Evaluating:**
 If you already have the predictions of all test images or you don't want to evaluate all classes, you can do as this:
 ```
-python evaluate.py --dataset 'dataset_path' --predictions 'prediction_path''
+python evaluate.py --dataset 'dataset_path' --predictions 'prediction_path'
 ```
 **Note:** You must specify the class to be evaluated in 'dataset/evaluated_classes.txt''.
 ***
