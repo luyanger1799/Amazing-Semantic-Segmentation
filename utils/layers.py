@@ -62,3 +62,42 @@ class Concatenate(layers.Concatenate):
                     break
                 output_shape[self.axis] += shape[self.axis]
             return tuple([output_shape[0]] + list(self.out_size) + [output_shape[-1]])
+
+    def get_config(self):
+        config = super(Concatenate, self).get_config()
+        config['out_size'] = self.out_size
+        return config
+
+
+class PixelShuffle(layers.Layer):
+    def __init__(self, block_size=2, **kwargs):
+        super(PixelShuffle, self).__init__(**kwargs)
+        if isinstance(block_size, int):
+            self.block_size = block_size
+        elif isinstance(block_size, (list, tuple)):
+            assert len(block_size) == 2 and block_size[0] == block_size[1]
+            self.block_size = block_size[0]
+        else:
+            raise ValueError('error \'block_size\'.')
+
+    def build(self, input_shape):
+        pass
+
+    def call(self, inputs, **kwargs):
+        return tf.nn.depth_to_space(inputs, self.block_size)
+
+    def compute_output_shape(self, input_shape):
+        input_shape = tf.TensorShape(input_shape).as_list()
+
+        _, h, w, c = input_shape
+
+        new_h = h * self.block_size
+        new_w = w * self.block_size
+        new_c = c / self.block_size ** 2
+
+        return tf.TensorShape([input_shape[0], new_h, new_w, new_c])
+
+    def get_config(self):
+        config = super(PixelShuffle, self).get_config()
+        config['block_size'] = self.block_size
+        return config
