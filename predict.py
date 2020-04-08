@@ -83,7 +83,7 @@ else:
 if args.color_csv is None:
     csv_file = os.path.join('CamVid', 'class_dict.csv')
 else:
-    csv_file = args.csv_file
+    csv_file = args.color_csv
 
 _, color_values = get_colored_info(csv_file)
 
