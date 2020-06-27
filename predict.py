@@ -80,7 +80,7 @@ else:
     image_names.sort()
 
 # get color info
-if args.color_csv is None:
+if args.csv_file is None:
     csv_file = os.path.join('CamVid', 'class_dict.csv')
 else:
     csv_file = args.csv_file
