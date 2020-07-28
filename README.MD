@@ -221,5 +221,4 @@ Due to my limited computing resources, there is no pre-training model yet. And m
 If you like this work, please give me a star! And if you find
 any errors or have any suggestions, please contact me.  
 
-**GitHub:** `luyanger1799`\
 **Email:** `luyanger1799@outlook.com` 
