@@ -159,7 +159,7 @@ model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
     filepath=os.path.join(paths['checkpoints_path'],
                           '{model}_based_on_{base}_'.format(model=args.model, base=base_model) +
                           'miou_{val_mean_io_u:04f}_' + 'ep_{epoch:02d}.h5'),
-    save_best_only=True, save_freq=args.checkpoint_freq, monitor='val_mean_io_u', mode='max')
+    save_best_only=True, period=args.checkpoint_freq, monitor='val_mean_io_u', mode='max')
 # tensorboard setting
 tensorboard = tf.keras.callbacks.TensorBoard(log_dir=paths['logs_path'])
 # learning rate scheduler setting
@@ -194,16 +194,16 @@ print("")
 
 # training...
 net.fit(train_generator,
-        steps_per_epoch=steps_per_epoch,
-        epochs=args.num_epochs,
-        callbacks=callbacks,
-        validation_data=valid_generator,
-        validation_steps=validation_steps,
-        validation_freq=args.validation_freq,
-        max_queue_size=10,
-        workers=os.cpu_count(),
-        use_multiprocessing=False,
-        initial_epoch=args.initial_epoch)
+                  steps_per_epoch=steps_per_epoch,
+                  epochs=args.num_epochs,
+                  callbacks=callbacks,
+                  validation_data=valid_generator,
+                  validation_steps=validation_steps,
+                  validation_freq=args.validation_freq,
+                  max_queue_size=10,
+                  workers=os.cpu_count(),
+                  use_multiprocessing=False,
+                  initial_epoch=args.initial_epoch)
 
 # save weights
 net.save(filepath=os.path.join(
