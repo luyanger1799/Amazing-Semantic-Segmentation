@@ -193,7 +193,7 @@ print("\tChannel Shift -->", args.channel_shift)
 print("")
 
 # training...
-net.fit_generator(train_generator,
+net.fit(train_generator,
                   steps_per_epoch=steps_per_epoch,
                   epochs=args.num_epochs,
                   callbacks=callbacks,
