@@ -1,17 +1,9 @@
-"""
-The implementation of VGG16/VGG19 based on Tensorflow.
-Some codes are based on official tensorflow source codes.
-
-@Author: Yang Lu
-@Github: https://github.com/luyanger1799
-@Project: https://github.com/luyanger1799/amazing-semantic-segmentation
-
-"""
 import tensorflow as tf
+from base_models.ICAU_5_5_edge import *
+from base_models.ICAU import *
 
 layers = tf.keras.layers
 backend = tf.keras.backend
-
 
 class VGG(object):
     def __init__(self, version='VGG16', dilation=None, **kwargs):
@@ -47,10 +39,17 @@ class VGG(object):
 
         # Block 1
         for i in range(self.params[0]):
-            x = layers.Conv2D(64, (3, 3),
-                              activation='relu',
-                              padding='same',
-                              name='block1_conv' + str(i + 1))(inputs)
+            if(i==0):
+                x = layers.Conv2D(64, (3, 3),
+                                activation='relu',
+                                padding='same',
+                                name='block1_conv' + str(i + 1))(inputs)
+            if(i>0):
+                x = layers.Conv2D(64, (3, 3),
+                                activation='relu',
+                                padding='same',
+                                name='block1_conv' + str(i + 1))(x)
+
         x = layers.MaxPooling2D((2, 2), strides=(2, 2), name='block1_pool')(x)
         c1 = x
 
@@ -69,6 +68,9 @@ class VGG(object):
                               activation='relu',
                               padding='same',
                               name='block3_conv' + str(i + 1))(x)
+        #inp = x
+        x = InpaintContextAttentionUnit5edge(fil=x.shape[3],n=8)(x)
+        x = tf.keras.layers.Conv2D(filters = x.shape[3]/3,kernel_size=1, activation='relu', padding='SAME',data_format='channels_last')(x)
         x = layers.MaxPooling2D((2, 2), strides=(2, 2), name='block3_pool')(x)
         c3 = x
 
@@ -81,6 +83,9 @@ class VGG(object):
                               dilation_rate=dilation[0])(x)
         if dilation[0] == 1:
             x = layers.MaxPooling2D((2, 2), strides=(2, 2), name='block4_pool')(x)
+        #inp = x
+        x = InpaintContextAttentionUnit5edge(fil=x.shape[3],n=8)(x)
+        x = tf.keras.layers.Conv2D(filters = x.shape[3]/3,kernel_size=1, activation='relu', padding='SAME',data_format='channels_last')(x)
         c4 = x
 
         # Block 5
@@ -92,6 +97,9 @@ class VGG(object):
                               dilation_rate=dilation[1])(x)
         if dilation[1] == 1:
             x = layers.MaxPooling2D((2, 2), strides=(2, 2), name='block5_pool')(x)
+        #inp = x
+        x = InpaintContextAttentionUnit(fil=x.shape[3],n=8)(x)
+        x = tf.keras.layers.Conv2D(filters = x.shape[3]/3,kernel_size=1, activation='relu', padding='SAME',data_format='channels_last')(x)
         c5 = x
 
         self.outputs = {'c1': c1,

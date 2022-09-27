@@ -33,7 +33,7 @@ parser.add_argument('--base_model', help='Choose the backbone model.', type=str,
 parser.add_argument('--csv_file', help='The path of color code csv file.', type=str, default=None)
 parser.add_argument('--num_classes', help='The number of classes to be segmented.', type=int, required=True)
 parser.add_argument('--crop_height', help='The height to crop the image.', type=int, default=256)
-parser.add_argument('--crop_width', help='The width to crop the image.', type=int, default=256)
+parser.add_argument('--crop_width', help='The width to crop the image.', type=int, default=448)
 parser.add_argument('--weights', help='The path of weights to be loaded.', type=str, default=None)
 parser.add_argument('--image_path', help='The path of predicted image.', type=str, required=True)
 parser.add_argument('--color_encode', help='Whether to color encode the prediction.', type=str2bool, default=True)

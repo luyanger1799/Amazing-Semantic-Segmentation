@@ -68,6 +68,8 @@ def check_dataset_path(dataset_path):
 
 
 def check_related_path(current_path):
+    current_path = "/ssd_scratch/cvit/varun/modeltest/"
+    #current_path = "/home2/varungupta/Amazing-Semantic-Segmentation/diagram/"
     assert os.path.exists(current_path)
 
     checkpoints_path = os.path.join(current_path, 'checkpoints')
