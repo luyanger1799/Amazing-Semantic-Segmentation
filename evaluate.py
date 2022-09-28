@@ -1,11 +1,3 @@
-"""
-The file defines the evaluate process on target dataset.
-
-@Author: Yang Lu
-@Github: https://github.com/luyanger1799
-@Project: https://github.com/luyanger1799/amazing-semantic-segmentation
-
-"""
 from sklearn.metrics import multilabel_confusion_matrix
 from utils.helpers import *
 from utils.utils import load_image

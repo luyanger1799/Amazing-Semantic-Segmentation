@@ -1,9 +1,11 @@
+"""
+@author:varungupta
+"""
 import tensorflow as tf
-#from tensorflow import keras
 from PIL import Image
 from keras_applications import imagenet_utils
-from ICAU_5_5_edge import *
-from ICAU import *
+from base_models.ICAU_5_5_edge import *
+from base_models.ICAU import *
 import PIL.Image
 import numpy as np
 import cv2
@@ -33,14 +35,11 @@ def self_balanced_focal_loss(alpha=3, gamma=2.0):
     return loss
 
 def get_img_array(img_path, size):
-    # `img` is a PIL image of size 299x299
-    #img = keras.preprocessing.image.load_img(img_path, target_size=size)
+    
     img = tf.keras.utils.load_img(img_path, target_size=size)
     # `array` is a float32 Numpy array of shape (299, 299, 3)
-    #array = keras.preprocessing.image.img_to_array(img)
     array = tf.keras.utils.img_to_array(img)
     # We add a dimension to transform our array into a "batch"
-    # of size (1, 299, 299, 3)
     array = np.expand_dims(array, axis=0)
     return array
 
@@ -48,27 +47,17 @@ def get_img_array(img_path, size):
 def make_gradcam_heatmap(img_array, model, last_conv_layer_name,idx1,idx2):
     
     grad_model = tf.keras.models.Model(
-        [model.inputs], [model.get_layer(last_conv_layer_name).output, model.output]
-    )
-
+        [model.inputs], [model.get_layer(last_conv_layer_name).output, model.output])
     
     with tf.GradientTape() as tape:
         last_conv_layer_output, preds = grad_model(img_array)
-        # if pred_index is None:
-        #     pred_index = tf.argmax(preds[0])
-        # class_channel = preds[:, pred_index]
-
         class_channel = preds[0][idx1][idx2][1]
-
     
-    grads = tape.gradient(class_channel, last_conv_layer_output)
-
-    
+    grads = tape.gradient(class_channel, last_conv_layer_output)   
     pooled_grads = tf.reduce_mean(grads, axis=(0, 1, 2))
     last_conv_layer_output = last_conv_layer_output[0]
     heatmap = last_conv_layer_output @ pooled_grads[..., tf.newaxis]
     heatmap = tf.squeeze(heatmap)
-
     heatmap = tf.maximum(heatmap, 0) / tf.math.reduce_max(heatmap)
     return heatmap.numpy()
 
@@ -99,7 +88,7 @@ def save_and_display_gradcam(img_path, heatmap, cam_path="cam.jpg", alpha=1):
     # Save the superimposed image
     superimposed_img.save(cam_path)
 
-
+#Identifying the centroid coordinates.
 def get_cord(img):
     points = []
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -126,14 +115,13 @@ def get_cord(img):
         #p1_y = (cY+extBot[1])/2.0
         
         #points.append(extLeft)
+    return points
 
 
-model = keras.models.load_model('/ssd_scratch/cvit/varun/FCN-8s_based_on_VGG19_miou_0.803339_ep_313.h5',
+model = keras.models.load_model('cuecan_segmenter.h5',
                                  custom_objects={'loss':self_balanced_focal_loss(alpha=3, gamma=2.0),
                                  'InpaintContextAttentionUnit':InpaintContextAttentionUnit,
                                  'InpaintContextAttentionUnit5edge':InpaintContextAttentionUnit5edge})
-
-
 
 def load_img(name):
   img = PIL.Image.open(name)
@@ -142,13 +130,14 @@ def load_img(name):
 def decode_one_hot(one_hot_map):
     return np.argmax(one_hot_map, axis=-1)
 
-
 #image directory
-path = "/ssd_scratch/cvit/varun/selected/"
+path = "images/context/"
 images = list(glob.glob(path+"*.png"))
 img_size = (256, 448)
 last_conv_layer_name = "block5_conv4"
 
+if not os.path.exists("outSeg/"):
+  os.mkdir("outSeg/")
 for file in images:
   image = cv2.resize(load_img(file), dsize=(448,256))
   image = imagenet_utils.preprocess_input(image.astype(np.float32), data_format='channels_last', mode='torch')
@@ -173,6 +162,6 @@ for file in images:
       heatmap = make_gradcam_heatmap(img_array, model, last_conv_layer_name,pair[0],pair[1])
       netmap+=heatmap
     netmap/=len(pairs)
-    save_and_display_gradcam(file,netmap, cam_path = "/home2/varungupta/Amazing-Semantic-Segmentation/diagram/"+os.path.basename(file))
+    save_and_display_gradcam(file,netmap, cam_path = "outSeg/"+os.path.basename(file))
   else:
     continue

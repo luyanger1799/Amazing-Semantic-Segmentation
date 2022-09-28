@@ -1,11 +1,3 @@
-"""
-The file defines the predict process of a single RGB image.
-
-@Author: Yang Lu
-@Github: https://github.com/luyanger1799
-@Project: https://github.com/luyanger1799/amazing-semantic-segmentation
-
-"""
 from utils.helpers import check_related_path, get_colored_info, color_encode
 from utils.utils import load_image, decode_one_hot
 from keras_applications import imagenet_utils
