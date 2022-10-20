@@ -33,7 +33,7 @@ class SegNet(Network):
                               'DenseNet121',
                               'DenseNet169',
                               'DenseNet201',
-                              'DenseNet269',
+                              'DenseNet264',
                               'MobileNetV1',
                               'MobileNetV2',
                               'Xception',
